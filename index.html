@@ -1,0 +1,167 @@
+<head>
+<style>
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    
+    @font-face {
+        font-family: burnstown;
+        src: url('burnstown dam.ttf');
+    }
+    @font-face {
+        font-family: foo;
+        src: url('foo.ttf');
+    }
+    @font-face {
+        font-family: pricedown;
+        src: url('pricedown bl.ttf');
+    } 
+    @font-face {
+        font-family: Wunderbarch;
+        src: url('WC_Wunderbach_Rough.ttf');
+    }
+ 
+
+    
+
+</style>
+</head>
+<body>
+<center><canvas id="canvas"></canvas></center>
+<script>
+ 
+    tmpFib = [];
+    tmpFib[0] = 0;
+    tmpFib[1] = 0;
+    fibo = 0;
+    fibTxt = '';
+    tablicaFib = [];
+    tablicaFib[1] = true;
+    tablicaFib[2] = true;
+    tablicaFib[3] = true;
+    tablicaFib[5] = true;
+    tablicaFib[8] = true;
+    gamemode = 0;
+    napis = [];
+
+    newValue = function(n, mode) {
+
+            rand = Math.floor(Math.random() * 3);
+
+            switch (mode) {
+
+                case 'bin':
+
+                    for (var i = 0; i <= 2; i++) {
+
+
+                        if (i == rand) {
+
+                            tiles[n][i].value = 1;
+                            tiles[n][i].ok = 1;
+
+                        } else {
+
+                            tiles[n][i].value = 0;
+                            tiles[n][i].ok = 0;
+
+                        }
+                    }
+
+                    break;
+
+                case 'fib':
+                    for (var i = 0; i <= 2; i++) {
+
+
+                        if (i == rand) {
+
+                            tiles[n][i].value = praw();
+                            tiles[n][i].ok = 1;
+
+                        } else {
+
+                            tiles[n][i].value = falsz();
+                            tiles[n][i].ok = 0;
+
+                        }
+                    }
+
+                    break;
+
+            }
+        }
+        //////////////////////////////ADDITIONAL FUNCTIONS//////////////////////////////////////
+    newValueFib = function(n) {
+
+        rand = Math.floor(Math.random() * 3 + 1);
+
+
+
+    }
+    spr = function(arg) {
+            switch (gamemode) {
+
+                case 'bin':
+
+                    if (arg.value == 1) return true;
+
+                    break;
+
+                    //////////////////////////////
+
+                case 'fib':
+
+                    if (arg.value in tablicaFib) return true;
+
+                    break;
+
+                    return false;
+
+            }
+
+
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////             
+    function falsz() {
+        if (fibo > 1) {
+
+            los = Math.floor(prawda[2] + Math.random() * prawda[2] - prawda[2] / 2)
+
+            if (los == 3 || los == 5) los = 4;
+
+            return los;
+
+        } else return 1;
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    function praw() {
+        prawda[2] = prawda[0] + prawda[1];
+
+        if (fibo > 1) {
+
+            tablicaFib[prawda[2]] = true;
+            prawda[0] = prawda[1];
+            prawda[1] = prawda[2];
+
+            return prawda[2];
+
+        } else {
+
+            fibo++;
+
+            return prawda[0];
+
+        }
+    }
+
+</script>
+<script src="scripts/menu.js"></script>
+<script src="scripts/tile.js"></script>
+<script src="scripts/update.js"></script>
+<script src="scripts/render.js"></script>
+<script src="scripts/main.js"></script>
+<script src="scripts/game.js"></script>
+</body>
