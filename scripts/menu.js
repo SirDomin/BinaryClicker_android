@@ -59,7 +59,8 @@ function newGame() {
     } else {
 
         buttons[1] = new Button(buttonX, button2Y, buttonW, buttonH, 'white', 0, 'LOCKED', buttonfontSize, function () {
-            alert = new Alert('get 300 in binary to unlock', 'red');
+            navigator.vibrate(500);
+            alert = new Alert('get 300 in binary to unlock', 'red',canvas.width * 0.08,10);
         })
 
     }
@@ -94,13 +95,13 @@ function highScore() {
 function info() {
     buttons = [];
 
-    napis[0] = new Napis(canvas.width / 5, canvas.height / 4, 'white', 'GAME BY:');
-    napis[1] = new Napis(canvas.width / 7, button2Y, 'hsla(110, 100%, 50%, 1)', 'Dominik Garbulski', canvas.width * 0.08);
+    napis[0] = new Napis(canvas.width / 6, canvas.height / 4, 'white', 'GAME BY:');
+    napis[1] = new Napis(canvas.width / 8, button2Y, 'hsla(110, 100%, 50%, 1)', 'Dominik Garbulski', canvas.width * 0.08);
     napis[1].animate = function () {
-        if (!this.v) this.v = 0.8;
-
+        if (!this.v) this.v = canvas.width/3273
+        this.x-=this.v*2;
         this.fSize += this.v;
-        if (this.fSize > buttonfontSize || this.fSize < canvas.width * 0.08) this.v = -this.v;
+        if (this.fSize > buttonfontSize || this.fSize < canvas.width * 0.07) this.v = -this.v;
 
 
     }

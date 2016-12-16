@@ -147,7 +147,7 @@ canvas.addEventListener('touchstart', function (e) {
 
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
 function lose() {
-
+    navigator.vibrate(500);
     speed = 0;
 
     game = false;

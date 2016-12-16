@@ -70,14 +70,16 @@ var Napis = function (x, y, color, napis, fSize) {
     }
 }
 
-var Alert = function (napis, color) {
-
+var Alert = function (napis, color,fSize,xPos) {
+   
+        this.fSize=Math.floor(fSize);
         this.napis = napis;
         this.color = color;
         this.time = now;
         this.y = canvas.height / 2;
-        this.x = canvas.width - (this.napis.length + 1) * font;
+        this.x = xPos;
         this.render = function () {
+            ctx.font=this.fSize+"px "+currFont;
             ctx.fillStyle = this.color;
             ctx.fillText(this.napis, this.x, this.y);
             if (now - this.time >= 1000) {

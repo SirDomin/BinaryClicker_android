@@ -17,7 +17,7 @@ function update() {
 
             //////////////////////////////////////IF OUT OF RENDERING CONTEXT AND NOT CLICKED/////////
             if (tiles[0][0].clicked != 1 && tiles[0][1].clicked != 1 && tiles[0][2].clicked != 1) {
-
+                
                 lose();
 
             }
