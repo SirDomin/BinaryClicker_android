@@ -1,5 +1,6 @@
 var Tile = function (x, y, row_id, col_id, fSize) {
-
+        
+        
         this.x = x;
         this.y = y;
         this.row_id = row_id;
@@ -15,7 +16,7 @@ var Tile = function (x, y, row_id, col_id, fSize) {
             ctx.font = this.fSize + 'px '+(localStorage.getItem('font') || 'burnstown')  ;
             ctx.fillStyle = 'black';
 
-            ctx.fillText(this.value, this.x + canvas.width / 3 / 2.4, this.y + canvas.height / 3 / 1.7);
+            ctx.fillText(this.value, this.x + canvas.width / 10, this.y + canvas.height / 5.1);
 
         }
 

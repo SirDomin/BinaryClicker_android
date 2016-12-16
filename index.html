@@ -8,19 +8,19 @@
     
     @font-face {
         font-family: burnstown;
-        src: url('burnstown dam.ttf');
+        src: url('fonts/burnstown dam.ttf');
     }
     @font-face {
         font-family: foo;
-        src: url('foo.ttf');
+        src: url('fonts/foo.ttf');
     }
     @font-face {
         font-family: pricedown;
-        src: url('pricedown bl.ttf');
+        src: url('fonts/pricedown bl.ttf');
     } 
     @font-face {
         font-family: Wunderbarch;
-        src: url('WC_Wunderbach_Rough.ttf');
+        src: url('fonts/WC_Wunderbach_Rough.ttf');
     }
  
 
@@ -73,21 +73,24 @@
                     break;
 
                 case 'fib':
+                    
                     for (var i = 0; i <= 2; i++) {
-
+                            
 
                         if (i == rand) {
 
-                            tiles[n][i].value = praw();
+                            tiles[n][i].value =praw();
                             tiles[n][i].ok = 1;
 
                         } else {
 
-                            tiles[n][i].value = falsz();
+                            tiles[n][i].value =falsz();
                             tiles[n][i].ok = 0;
 
                         }
                     }
+                     fibo++;
+                    console.log(fibo)
 
                     break;
 
@@ -97,7 +100,7 @@
     newValueFib = function(n) {
 
         rand = Math.floor(Math.random() * 3 + 1);
-
+        
 
 
     }
@@ -126,6 +129,7 @@
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////             
     function falsz() {
+    
         if (fibo > 1) {
 
             los = Math.floor(prawda[2] + Math.random() * prawda[2] - prawda[2] / 2)
@@ -138,6 +142,8 @@
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
     function praw() {
+       
+        
         prawda[2] = prawda[0] + prawda[1];
 
         if (fibo > 1) {
@@ -150,7 +156,7 @@
 
         } else {
 
-            fibo++;
+            
 
             return prawda[0];
 

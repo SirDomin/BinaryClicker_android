@@ -13,89 +13,16 @@ point = [];
 buttons = [];
 game = false;
 menu = true;
-
+tileRows=0;
 speed = 0;
 ctx = canvas.getContext("2d");
 ctx.font = Math.floor(canvas.width / 30) + "px foo";
     startfSize=localStorage.getItem('startfSize') || Math.floor(canvas.width*0.08);
     currFont=localStorage.getItem('font') || 'burnstown'  ;
 font = canvas.width / 30;
-///////////////////////////////////GAME CHOICE RENDERING////////////////////////
-///////////////////////////////MAIN MENU///////////////////////
-    function mainMenu() {
-        napis = [];
-        buttons = [];
 
-        buttons[0] = new Button(canvas.width / 4, canvas.height / 6, canvas.width / 2, canvas.height / 8, 'white', 0, 'New Game',canvas.width*0.1, function() {
-            newGame();
-        })
-
-        buttons[1] = new Button(canvas.width / 4, canvas.height / 3, canvas.width / 2, canvas.height / 8, 'white', 0, 'Info',canvas.width*0.1, function() {
-            info();
-
-        })
-
-        buttons[2] = new Button(canvas.width / 4, canvas.height / 2, canvas.width / 2, canvas.height / 8, 'white', 0, 'Scores',canvas.width*0.1, function() {
-            highScore();
-
-        })
-        
-          buttons[3] = new Button(canvas.width / 4, canvas.height / 1.5, canvas.width / 2, canvas.height / 8, 'white', 0, 'Settings',canvas.width*0.1, function() {
-            settings();
-
-        })
-        menu = true;
-    }
-
-
-
-
-
-function fonts(){
-    buttons[0] = new Button(canvas.width / 4, canvas.height / 6, canvas.width / 2, canvas.height / 8, 'white', 0, 'test',canvas.width*0.14, function () {
-        currFont='burnstown';
-        localStorage.setItem('font','burnstown');
-        startfSize=canvas.width*0.08;
-        localStorage.setItem('startfSize',startfSize);
-    },'burnstown');
-    
-    buttons[1] = new Button(canvas.width / 4, canvas.height / 3, canvas.width / 2, canvas.height / 8, 'white', 0, 'test',canvas.width*0.14, function () {
-        currFont='foo';
-        localStorage.setItem('font','foo');
-        startfSize=canvas.width*0.12;
-        localStorage.setItem('startfSize',startfSize);
-    },'foo')
-    
-    buttons[2] = new Button(canvas.width / 4, canvas.height / 2, canvas.width / 2, canvas.height / 8, 'white', 0, 'test',canvas.width*0.14, function () {
-        currFont='pricedown';
-        localStorage.setItem('font','pricedown');
-        startfSize=canvas.width*0.05;
-        localStorage.setItem('startfSize',startfSize);
-    },'pricedown')
-        
-    buttons[3] = new Button(canvas.width / 4, canvas.height / 1.5, canvas.width / 2, canvas.height / 8, 'white', 0, 'test',canvas.width*0.14, function () {
-        currFont='Wunderbarch';
-        localStorage.setItem('font','Wunderbarch');
-        startfSize=canvas.width*0.15;
-        localStorage.setItem('startfSize',startfSize);
-    },'Wunderbarch')
-        
-    buttons[4] = new Button(canvas.width / 4, canvas.height / 1.2, canvas.width / 2, canvas.height / 8, 'white', 0, '< Back',canvas.width*0.14, function () {
-        settings()
-    })
-}
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////BINARY START///////////////////////////////////////////////////
+setButtons();
+////////////////////////////BINARY START///////////////////////////////////////////////////
 binaryGame = function () {
 
     game = true;
@@ -142,7 +69,7 @@ fibGame = function () {
     points = 0;
     rows = 0;
 
-
+    
     for (var i = 0; i < 5; i++) {
 
         tiles[i] = [];
@@ -153,7 +80,7 @@ fibGame = function () {
             tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1);
 
         }
-
+       
         newValue(i, gamemode);
 
     }
