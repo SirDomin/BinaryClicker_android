@@ -114,7 +114,9 @@ canvas.addEventListener('touchstart', function (e) {
 
     mouseX = e.changedTouches[0].pageX;
     mouseY = e.changedTouches[0].pageY + speed * 5;
-
+    
+   // particles[particles.length]=new Particle(mouseX,mouseY)
+    
     if (game && mouseY > canvas.height / 10&&!animate) {
 
         for (var i = 0; i <= 4; i++) {

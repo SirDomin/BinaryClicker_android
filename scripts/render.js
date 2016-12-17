@@ -8,7 +8,7 @@ function render() {
         for (var i = 0; i < 5; i++) {
 
             for (var o = 0; o < 3; o++) {
-
+                tiles[i][o].update();
                 tiles[i][o].render();
 
             }
@@ -33,11 +33,13 @@ function render() {
         //////////////////////RENDERING MENU///////////
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+          
             if(particles){
+                ctx.fillStyle="hsla(110, 100%, 50%, 1)";
                 for(var i=0;i<particles.length;i++)
                     particles[i].render();
             }
+         
             
         
         ctx.fillStyle = 'white';
@@ -48,18 +50,19 @@ function render() {
 
 
 
-        for (var i = 0; i < buttons.length; i++) {
-
-            buttons[i].render();
-            if(buttons[i].animate)buttons[i].animate();
-            
+        for (var i = 0; i < 7; i++) {
+            if(buttons[i]){
+                buttons[i].render();
+                if(buttons[i].animate)buttons[i].animate();
+            }
+            if(napis[i]){
+                napis[i].render();
+                if (napis[i].animate) napis[i].animate();
+            }
         }
 
     }
-    for (var i = 0; i < napis.length; i++) {
-        napis[i].render();
-        if (napis[i].animate) napis[i].animate();
-    }
+
     if (alert)
         alert.render();
     if(animate)

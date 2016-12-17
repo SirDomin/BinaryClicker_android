@@ -19,10 +19,11 @@ function setButtons() {
 
     buttonfontSize = canvas.height / (canvas.height / canvas.width * 10);
     
-    for(var i=0;i<=50;i++){
-    particles[i]=new Particle;
-}
-   
+  if(particles){
+  for(var i=0;i<=20;i++){
+        particles[i]=new Particle;
+    }
+  }
 }
 
 ///////////////////////////////MAIN MENU///////////////////////
@@ -309,6 +310,7 @@ function settings() {
 
     buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'Fonts', buttonfontSize, function () {
     animation=true;
+        this.img=buttonClk;
         this.animate=function(){
             
             if(this.x<canvas.width){
@@ -321,10 +323,32 @@ function settings() {
                 
             }
         };
+    });
+    
+    
+    buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'Particles', buttonfontSize, function () {
+        if(particles){
+            
+            buttons[1].img=buttonClk;
+            particles=false;
+            localStorage.setItem('particles',0);
+        }else{
+            localStorage.setItem('particles',1);
+            this.img=buttonImg;
+            particles=[];
+              for(var i=0;i<=20;i++){
+                particles[i]=new Particle;
+            }
+        }
+        
     })
+    if(!particles){
+        buttons[1].img=buttonClk;
+    }else buttons[1].img=buttonImg;
+ 
 
 
-    buttons[1] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[2] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
     this.img=buttonClk;
         animation=true;
         this.animate=function(){
@@ -361,6 +385,11 @@ function fonts() {
         localStorage.setItem('font', 'burnstown');
         startfSize = canvas.width * 0.08;
         localStorage.setItem('startfSize', startfSize);
+        
+        this.img=buttonClk;
+        buttons[1].img=buttonImg;
+        buttons[2].img=buttonImg;
+        buttons[3].img=buttonImg;
     }, 'burnstown');
 
     buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'test', canvas.width * 0.14, function () {
@@ -368,6 +397,11 @@ function fonts() {
         localStorage.setItem('font', 'foo');
         startfSize = canvas.width * 0.12;
         localStorage.setItem('startfSize', startfSize);
+        
+        buttons[0].img=buttonImg;
+        buttons[1].img=buttonClk;
+        buttons[2].img=buttonImg;
+        buttons[3].img=buttonImg;
     }, 'foo')
 
     buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'white', 0, 'test', canvas.width * 0.14, function () {
@@ -375,6 +409,11 @@ function fonts() {
         localStorage.setItem('font', 'pricedown');
         startfSize = canvas.width * 0.05;
         localStorage.setItem('startfSize', startfSize);
+        
+        buttons[0].img=buttonImg;
+        buttons[1].img=buttonImg;
+        buttons[2].img=buttonClk;
+        buttons[3].img=buttonImg;
     }, 'pricedown')
 
     buttons[3] = new Button(canvas.width, button4Y, buttonW, buttonH, 'white', 0, 'test', canvas.width * 0.14, function () {
@@ -382,6 +421,11 @@ function fonts() {
         localStorage.setItem('font', 'Wunderbarch');
         startfSize = canvas.width * 0.15;
         localStorage.setItem('startfSize', startfSize);
+        
+        buttons[0].img=buttonImg;
+        buttons[1].img=buttonImg;
+        buttons[2].img=buttonImg;
+        buttons[3].img=buttonClk;
     }, 'Wunderbarch')
 
     buttons[4] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
@@ -400,6 +444,24 @@ function fonts() {
             }
         };
     })
+    switch(currFont){
+        case "burnstown":
+            buttons[0].img=buttonClk;
+        break;
+            
+        case "foo":
+            buttons[1].img=buttonClk;
+        break;
+            
+        case "pricedown":
+            buttons[2].img=buttonClk;
+        break;
+        
+        case "Wunderbarch":
+            buttons[3].img=buttonClk;
+        break;
+        
+    }
     
     
     animation=true;

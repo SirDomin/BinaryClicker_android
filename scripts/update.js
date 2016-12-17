@@ -2,15 +2,7 @@ function update() {
 
     if (game) {
 
-        for (var i = 0; i < 5; i++) {
 
-            for (var o = 0; o < 3; o++) {
-
-                tiles[i][o].update();
-
-            }
-
-        }
 
         //////////////////////////////////ONCLICK OR OUT OF RENDERING CONTEXT/////////////////
         if (tiles[0][0].y>= canvas.height || tiles[0][0].clicked || tiles[0][1].clicked || tiles[0][2].clicked) {

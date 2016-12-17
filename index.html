@@ -31,7 +31,11 @@
 <body>
 <center><canvas id="canvas"></canvas></center>
 <script>
-    particles=[];
+    tmp=localStorage.getItem('particles');
+    if(tmp!=0){
+        particles=[];
+    }else particles=false;
+    
     animate=false;
     losuj=true;
     tmpFib = [];
