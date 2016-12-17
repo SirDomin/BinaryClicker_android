@@ -87,7 +87,28 @@ var Alert = function (napis, color,fSize,xPos) {
             }
         }
     }
-    //DEBUG MODE POINT
+
+var Particle=function(){
+    console.log('created !');
+    this.x=Math.random()*canvas.width;
+    this.y=0-(Math.random()*canvas.height);
+    this.value=Math.floor(Math.random()*2);
+    this.fSize=Math.floor(Math.random()*20+30)
+        this.render=function(){
+                ctx.fillStyle="hsla(110, 100%, 50%, 1)";
+            ctx.font=this.fSize+"px "+currFont;
+        
+            
+            ctx.fillText(this.value,this.x,this.y);
+            if(this.y<canvas.height)this.y+=this.fSize/5;
+                else this.y=0;
+            
+        }
+
+    
+}
+        
+ //DEBUG MODE POINT
     //var Punkt=function(x,y){
     //    
     //    this.x=x;

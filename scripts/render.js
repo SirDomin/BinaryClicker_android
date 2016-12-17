@@ -33,6 +33,13 @@ function render() {
         //////////////////////RENDERING MENU///////////
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+            if(particles){
+                for(var i=0;i<particles.length;i++)
+                    particles[i].render();
+            }
+            
+        
         ctx.fillStyle = 'white';
 
         ctx.font = Math.floor(canvas.width*0.1)+"px "+(localStorage.getItem('font') || 'burnstown')  ;

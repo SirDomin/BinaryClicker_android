@@ -17,7 +17,12 @@ function setButtons() {
     buttonClk = new Image();
     buttonClk.src = 'img/buttonclicked.png';
 
-    buttonfontSize = canvas.height / (canvas.height / canvas.width * 10)
+    buttonfontSize = canvas.height / (canvas.height / canvas.width * 10);
+    
+    for(var i=0;i<=50;i++){
+    particles[i]=new Particle;
+}
+   
 }
 
 ///////////////////////////////MAIN MENU///////////////////////
