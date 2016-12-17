@@ -13,16 +13,16 @@ function update() {
         }
 
         //////////////////////////////////ONCLICK OR OUT OF RENDERING CONTEXT/////////////////
-        if (tiles[0][0].y >= canvas.height || tiles[0][0].clicked || tiles[0][1].clicked || tiles[0][2].clicked) {
+        if (tiles[0][0].y>= canvas.height || tiles[0][0].clicked || tiles[0][1].clicked || tiles[0][2].clicked) {
 
             //////////////////////////////////////IF OUT OF RENDERING CONTEXT AND NOT CLICKED/////////
             if (tiles[0][0].clicked != 1 && tiles[0][1].clicked != 1 && tiles[0][2].clicked != 1) {
                 
-                lose();
-
+                lose('ooc');
+                losuj=false;
             }
 
-            if (game) {
+            if (game&&losuj) {
 
 
                 ///////////////////////MAKE IT WORK ONLY AT 5 ROWS !!!!!!!!!//////////////

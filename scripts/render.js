@@ -44,7 +44,8 @@ function render() {
         for (var i = 0; i < buttons.length; i++) {
 
             buttons[i].render();
-
+            if(buttons[i].animate)buttons[i].animate();
+            
         }
 
     }
@@ -54,7 +55,8 @@ function render() {
     }
     if (alert)
         alert.render();
-
+    if(animate)
+        animate();
     //////////////////////////POINTS (DEBUGMODE)////////////////////////
 
     //for(var i=0;i<point.length;i++){

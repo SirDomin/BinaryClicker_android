@@ -31,7 +31,8 @@
 <body>
 <center><canvas id="canvas"></canvas></center>
 <script>
- 
+    animate=false;
+    losuj=true;
     tmpFib = [];
     tmpFib[0] = 0;
     tmpFib[1] = 0;
@@ -162,7 +163,12 @@
 
         }
     }
-
+function Round(n, k) 
+{
+    var factor = Math.pow(10, k+1);
+    n = Math.round(Math.round(n*factor)/10);
+    return n/(factor/10);
+}
 </script>
 <script src="scripts/menu.js"></script>
 <script src="scripts/tile.js"></script>

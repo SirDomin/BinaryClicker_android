@@ -21,6 +21,17 @@ ctx.font = Math.floor(canvas.width / 30) + "px foo";
     currFont=localStorage.getItem('font') || 'burnstown'  ;
 font = canvas.width / 30;
 
+animation=false;
+
+tile=new Image();
+tile.src="scripts/tile.png";
+
+tile1=new Image();
+tile1.src="scripts/tile1.png";
+
+tile0=new Image();
+tile0.src="scripts/tile0.png";
+
 setButtons();
 ////////////////////////////BINARY START///////////////////////////////////////////////////
 binaryGame = function () {
@@ -104,7 +115,7 @@ canvas.addEventListener('touchstart', function (e) {
     mouseX = e.changedTouches[0].pageX;
     mouseY = e.changedTouches[0].pageY + speed * 5;
 
-    if (game && mouseY > canvas.height / 10) {
+    if (game && mouseY > canvas.height / 10&&!animate) {
 
         for (var i = 0; i <= 4; i++) {
             for (var o = 0; o < 3; o++) {
@@ -125,13 +136,13 @@ canvas.addEventListener('touchstart', function (e) {
 
                 } else {
 
-                    lose();
+                    lose('click',i,o,tiles[i][o].y);
 
                 }
             }
         }
     }
-    if (menu) {
+    if (menu&&!animation) {
 
         for (var i = 0; i < buttons.length; i++) {
 
@@ -146,28 +157,49 @@ canvas.addEventListener('touchstart', function (e) {
 })
 
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
-function lose() {
+function lose(why,i,o,y) {
     navigator.vibrate(500);
-    speed = 0;
-
-    game = false;
-
-    tiles[0][0].image.src = "scripts/tile.png";
-    tiles[0][1].image.src = "scripts/tile.png";
-    tiles[0][2].image.src = "scripts/tile.png";
-
-    //SET LAST SCORE TO CURRENT SCORE
-    localStorage.setItem('lastScore', points);
-    buttons.splice(1, 1);
-
-    if (!localStorage.getItem(gamemode) || localStorage.getItem(gamemode) < points) {
-
-        localStorage.setItem(gamemode, points);
+  
+    
+    if(why=='ooc'){
+        tiles[0][0].image=tile0;
+        tiles[0][1].image=tile0;
+        tiles[0][2].image=tile0;
+            animate=function(){
+                speed=-5;
+                if(tiles[0][0].y<canvas.height-canvas.height/3){
+                    speed=0;
+                    animate=false;
+                    game = false;
+                        localStorage.setItem('lastScore', points);
+                        
+                        if (!localStorage.getItem(gamemode) || localStorage.getItem(gamemode) < points) {
+                            localStorage.setItem(gamemode, points);
+                        }
+                    losuj=true;
+                    mainMenu()
+                }
+            }
+    }else if(why=='click'){
+        tiles[i][o].image=tile0;
+        var y=y;
+            animate=function(){
+                speed=-5;
+                if(tiles[i][o].y<y-(canvas.height/3)){
+                    speed=0;
+                    animate=false;
+                    game = false;
+                        localStorage.setItem('lastScore', points);
+                        
+                        if (!localStorage.getItem(gamemode) || localStorage.getItem(gamemode) < points) {
+                            localStorage.setItem(gamemode, points);
+                        }
+                    losuj=true;
+                    mainMenu()
+                }
+            }
     }
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    setTimeout(mainMenu, 10);
-
+   
 }
 
 

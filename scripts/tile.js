@@ -9,8 +9,8 @@ var Tile = function (x, y, row_id, col_id, fSize) {
         this.value = 1;
         this.ok = 0;
         this.fSize = Math.floor(fSize);
-        this.image = new Image();
-        this.image.src = "scripts/tile.png";
+        this.image = tile1;
+
         this.render = function () {
             ctx.drawImage(this.image, this.x, this.y, canvas.width / 3, canvas.height / 3);
             ctx.font = this.fSize + 'px '+(localStorage.getItem('font') || 'burnstown')  ;
@@ -40,14 +40,14 @@ var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
     this.onclick = onclick;
     this.napis = napis;
     this.font=font;
-    
+    this.img=buttonImg;
     this.render = function () {
         if(this.font){
          ctx.font = this.fSize + "px "+this.font;
         }else ctx.font=this.fSize+"px "+currFont;
          
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
+        
         
            
    
