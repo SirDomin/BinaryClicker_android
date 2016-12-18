@@ -1,6 +1,8 @@
 function render() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle="black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 
     if (game) {
@@ -19,13 +21,16 @@ function render() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height / 10);
         ctx.fillStyle = "white";
-        ctx.font = Math.floor(canvas.width*0.08)+"px "+currFont;
+        ctx.font = Math.floor(canvas.width*0.06)+"px "+currFont;
+      
         ctx.fillText("POINTS: " + points, 20, canvas.height / 12);
             if(gamemode=='bin')
                 ctx.fillText("Speed: "+Math.floor(speed),canvas.width / 1.7, canvas.height / 12)
         if (gamemode == 'fib') {
+            
             ctx.fillText(fibTxt, canvas.width / 1.8, canvas.height / 12);
         }
+        
 
     }
 
@@ -67,6 +72,8 @@ function render() {
         alert.render();
     if(animate)
         animate();
+    if(prompt)
+        prompt.render();
     //////////////////////////POINTS (DEBUGMODE)////////////////////////
 
     //for(var i=0;i<point.length;i++){

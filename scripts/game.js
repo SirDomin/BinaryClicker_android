@@ -1,5 +1,5 @@
 var canvas = document.getElementById("canvas");
-canvas.style.border = "solid 1px black";
+
 
 
 canvas.width = window.innerWidth;
@@ -8,6 +8,7 @@ canvas.height = window.innerHeight;
 
 //canvas.width =480
 //canvas.height=640;
+prompt=false;
 alert = false;
 point = [];
 buttons = [];
@@ -23,14 +24,6 @@ font = canvas.width / 30;
 
 animation=false;
 
-tile=new Image();
-tile.src="scripts/tile.png";
-
-tile1=new Image();
-tile1.src="scripts/tile1.png";
-
-tile0=new Image();
-tile0.src="scripts/tile0.png";
 
 setButtons();
 ////////////////////////////BINARY START///////////////////////////////////////////////////
@@ -53,7 +46,7 @@ binaryGame = function () {
         for (var o = 0; o < 3; o++) {
 
             x = i + 3;
-            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.2);
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.2,'white');
 
         }
 
@@ -88,7 +81,7 @@ fibGame = function () {
         for (var o = 0; o < 3; o++) {
 
             x = i + 1;
-            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1);
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,'white');
 
         }
        
@@ -122,24 +115,25 @@ canvas.addEventListener('touchstart', function (e) {
         for (var i = 0; i <= 4; i++) {
             for (var o = 0; o < 3; o++) {
 
-                if (mouseX >= tiles[i][o].x && mouseX <= tiles[i][o].x + canvas.width / 3 && mouseY >= tiles[i][o].y && mouseY <= tiles[i][o].y + canvas.height / 3)
-
-                    if (spr(tiles[i][o])) {
-
-                    tiles[i][o].clicked = 1;
-                    points += tiles[i][o].value
-                    if (gamemode == 'fib') {
-                        tmpFib[0] = tmpFib[1];
-                        tmpFib[1] = fibTxt = tiles[i][o].value;
-                        fibTxt = tmpFib[0] + "+" + tmpFib[1] + "= ?";
+                if (mouseX >= tiles[i][o].x && mouseX <= tiles[i][o].x + canvas.width / 3 && mouseY >= tiles[i][o].y && mouseY <= tiles[i][o].y + canvas.height / 3){
+                    clicks++;
+                        if (spr(tiles[i][o])) {
+    
+                        tiles[i][o].clicked = 1;
+                        points += tiles[i][o].value
+                        if (gamemode == 'fib') {
+                            tmpFib[0] = tmpFib[1];
+                            tmpFib[1] = fibTxt = tiles[i][o].value;
+                            fibTxt = tmpFib[0] + "+" + tmpFib[1] + "= ?";
+                        }
+    
+                        if (rows >= 1) delete tablicaFib[tiles[i][o].value];
+    
+                    } else {
+    
+                        lose('click',i,o,tiles[i][o].y);
+    
                     }
-
-                    if (rows >= 1) delete tablicaFib[tiles[i][o].value];
-
-                } else {
-
-                    lose('click',i,o,tiles[i][o].y);
-
                 }
             }
         }
@@ -163,14 +157,17 @@ function lose(why,i,o,y) {
     navigator.vibrate(500);
   
     
+    
     if(why=='ooc'){
-        tiles[0][0].image=tile0;
-        tiles[0][1].image=tile0;
-        tiles[0][2].image=tile0;
+        tiles[0][0].color='red';
+        tiles[0][1].color='red';
+        tiles[0][2].color='red';
             animate=function(){
                 speed=-5;
                 if(tiles[0][0].y<canvas.height-canvas.height/3){
                     speed=0;
+                    menu=true;
+                    if(!prompt){
                     animate=false;
                     game = false;
                         localStorage.setItem('lastScore', points);
@@ -179,16 +176,23 @@ function lose(why,i,o,y) {
                             localStorage.setItem(gamemode, points);
                         }
                     losuj=true;
+                     
+                    ms+=(now-then);
+                        then=0;
+                        localStorage.setItem('ms',ms);
                     mainMenu()
+                    }
                 }
             }
     }else if(why=='click'){
-        tiles[i][o].image=tile0;
+        tiles[i][o].color='red';
         var y=y;
             animate=function(){
                 speed=-5;
                 if(tiles[i][o].y<y-(canvas.height/3)){
                     speed=0;
+                    menu=true;
+                    if(!prompt){
                     animate=false;
                     game = false;
                         localStorage.setItem('lastScore', points);
@@ -197,10 +201,21 @@ function lose(why,i,o,y) {
                             localStorage.setItem(gamemode, points);
                         }
                     losuj=true;
+                        
+                        ms+=(now-then);
+                        then=0;
+                        localStorage.setItem('ms',ms);
                     mainMenu()
+                        
+                        
+                }
                 }
             }
     }
+    
+
+    
+    localStorage.setItem('clicks',clicks);
    
 }
 

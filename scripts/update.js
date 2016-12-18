@@ -1,7 +1,7 @@
 function update() {
 
     if (game) {
-
+       if(!then)then=now;
 
 
         //////////////////////////////////ONCLICK OR OUT OF RENDERING CONTEXT/////////////////

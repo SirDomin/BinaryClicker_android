@@ -1,4 +1,4 @@
-var Tile = function (x, y, row_id, col_id, fSize) {
+var Tile = function (x, y, row_id, col_id, fSize,color) {
         
         
         this.x = x;
@@ -9,11 +9,19 @@ var Tile = function (x, y, row_id, col_id, fSize) {
         this.value = 1;
         this.ok = 0;
         this.fSize = Math.floor(fSize);
-        this.image = tile1;
-
+       
+        this.color=color;
+        this.w=canvas.width/3;
+        this.h=canvas.height/3;
         this.render = function () {
-            ctx.drawImage(this.image, this.x, this.y, canvas.width / 3, canvas.height / 3);
-            ctx.font = this.fSize + 'px '+(localStorage.getItem('font') || 'burnstown')  ;
+                ctx.fillStyle="black";
+                ctx.fillRect(this.x,this.y,this.w,this.h)
+            
+                ctx.fillStyle=this.color;
+                ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
+            
+    
+            ctx.font = this.fSize + 'px '+currFont;
             ctx.fillStyle = 'black';
 
             ctx.fillText(this.value, this.x + canvas.width / 10, this.y + canvas.height / 5.1);
@@ -29,7 +37,7 @@ var Tile = function (x, y, row_id, col_id, fSize) {
     }
     ///////////////////////////////BUTTON///////////////////////////
 var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
-
+ 
     this.x = x;
     this.y = y;
     this.w = w;
@@ -41,6 +49,7 @@ var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
     this.napis = napis;
     this.font=font;
     this.img=buttonImg;
+    if(this.fSize>this.h)this.fSize=this.h;
     this.render = function () {
         if(this.font){
          ctx.font = this.fSize + "px "+this.font;
@@ -52,7 +61,7 @@ var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
            
    
         ctx.fillStyle = 'black';
-        ctx.fillText(this.napis, this.x + this.w / 20, this.y + canvas.height / 12.8);
+        ctx.fillText(this.napis, this.x +5, this.y +this.fSize*1.5);
 
     }
 }
@@ -63,7 +72,9 @@ var Napis = function (x, y, color, napis, fSize) {
     this.color = color;
     this.napis = napis;
     this.fSize = Math.floor(fSize);
+    if(this.napis.length>=14)this.fSize-=((this.napis.length-16)*this.fSize/30)
     this.render = function () {
+       
         ctx.font = this.fSize + "px "+currFont;
         ctx.fillStyle = this.color;
         ctx.fillText(this.napis, this.x, this.y);
@@ -88,8 +99,9 @@ var Alert = function (napis, color,fSize,xPos) {
         }
     }
 
+
 var Particle=function(x,y){
-    console.log('created !');
+   
     this.x=x || Math.random()*(canvas.width-20);
     this.y=y || 0-(Math.random()*canvas.height);
     this.value=Math.floor(Math.random()*2);

@@ -31,11 +31,19 @@
 <body>
 <center><canvas id="canvas"></canvas></center>
 <script>
+    if(localStorage.getItem('lastScore')){
+        
+    }else localStorage.setItem('lastScore',0);
+    
     tmp=localStorage.getItem('particles');
     if(tmp!=0){
         particles=[];
     }else particles=false;
-    
+    if(!localStorage.getItem('bin'))
+        localStorage.setItem('bin',0)
+    ms=parseInt(localStorage.getItem('ms')) || 0;
+    clicks=parseInt(localStorage.getItem('clicks')) || 0;
+    then=0;
     animate=false;
     losuj=true;
     tmpFib = [];
@@ -173,6 +181,17 @@ function Round(n, k)
     var factor = Math.pow(10, k+1);
     n = Math.round(Math.round(n*factor)/10);
     return n/(factor/10);
+}
+    
+function getTime(ms){
+
+   
+hours = Math.floor(ms / 3600000), // 1 Hour = 3600000 Milliseconds
+minutes = Math.floor((ms % 3600000) / 60000), // 1 Minutes = 60000 Milliseconds
+seconds = Math.floor(((ms % 360000) % 60000) / 1000) // 1 Second = 1000 Milliseconds
+
+return hours+"H "+minutes+"M "+seconds+"S ";    
+    
 }
 </script>
 <script src="scripts/menu.js"></script>
