@@ -230,7 +230,7 @@ function newGame() {
 //////////////////////////////////////HIGHSCORE !/////////////////
 function highScore() {
     buttons = [];
-
+    napis = [];
 
 
     buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
@@ -290,7 +290,7 @@ function highScore() {
 ////////////////////////////////////INFO///////////////////////////////
 function info() {
     buttons = [];
-
+    napis = [];
     napis[0] = new Napis(canvas.width, canvas.height / 4, 'white', 'GAME BY:');
     napis[0].animate = function () {
         if (this.x > canvas.width / 6) this.x -= buttonsAnimSpeed;
@@ -354,7 +354,7 @@ function info() {
 ////////////////////////////////////////SETTINGS////////////////////////////////
 function settings() {
     buttons = [];
-
+    napis = [];
     buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'Fonts', buttonfontSize, function () {
         animation = true;
         this.img = buttonClk;
@@ -409,7 +409,7 @@ function settings() {
                 audioSound="1";
                 audio=new Audio("sound/Melodyjka.ogg");
                 audio.loop=true;
-                audio.volume=0.1;
+                audio.volume=0.5;
     
                 audio.play();
             
