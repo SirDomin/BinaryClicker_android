@@ -34,6 +34,7 @@
 </script>
 <script>
     audio=new Audio("sound/LYSY_GAMES.ogg");
+    audio.volume=1;
     audio.play();
     audio.onended=function(){
         if(parseInt(audioSound)){
@@ -41,7 +42,7 @@
     
     audio=new Audio("sound/Melodyjka.ogg");
     audio.loop=true;
-    audio.volume=0.1;
+    audio.volume=0.5;
     
     audio.play();
     

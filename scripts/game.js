@@ -149,7 +149,7 @@ canvas.addEventListener('touchstart', function (e) {
                 if(parseInt(buttonSound)){
                     var Baudio=new Audio("sound/button.ogg");
                     
-                    Baudio.volume=0.1;
+                    Baudio.volume=0.3;
                     Baudio.play();
                 }
                 buttons[i].onclick();
@@ -168,7 +168,7 @@ function lose(why,i,o,y) {
     
     audio=new Audio("sound/Melodyjka.ogg");
     audio.loop=true;
-    audio.volume=0.1;
+    audio.volume=0.5;
     
     audio.play();
     
