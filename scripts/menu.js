@@ -310,7 +310,17 @@ function info() {
             }
         }
     }
-
+    napis[3] = new Napis(canvas.width, canvas.height / 2.4, 'white', 'SOUNDS:',canvas.width * 0.08);
+    napis[3].animate = function () {
+        if (this.x > canvas.width / 6) this.x -= buttonsAnimSpeed;
+        else delete this.animate;
+    }
+    napis[2]=new Napis(canvas.width, canvas.height / 2, 'hsla(110, 100%, 50%, 1)', 'Rafik');
+    
+    napis[2].animate = function () {
+        if (this.x > canvas.width / 6) this.x -= buttonsAnimSpeed;
+        else delete this.animate;
+    }
     buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
@@ -382,10 +392,37 @@ function settings() {
     if (!particles) {
         buttons[1].img = buttonClk;
     } else buttons[1].img = buttonImg;
+    
+        buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'white', 0, 'Music', buttonfontSize, function () {
+        if (parseInt(buttonSound)) {
+
+            buttons[2].img = buttonClk;
+            buttonSound="0";
+            audioSound="0";
+            audio.pause();
+            localStorage.setItem('buttonSound', 0);
+            
+        } else {
+            localStorage.setItem('buttonSound', 1);
+            this.img = buttonImg;
+                buttonSound="1";
+                audioSound="1";
+                audio=new Audio("sound/Melodyjka.ogg");
+                audio.loop=true;
+                audio.volume=0.1;
+    
+                audio.play();
+            
+        }
+
+    })
+    if (!parseInt(buttonSound)) {
+        buttons[2].img = buttonClk;
+    } else buttons[2].img = buttonImg;
 
 
 
-    buttons[2] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[3] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {

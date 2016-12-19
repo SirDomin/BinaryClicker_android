@@ -33,11 +33,23 @@
 
 </script>
 <script>
+    audio=new Audio("sound/LYSY_GAMES.ogg");
+    audio.play();
+    audio.onended=function(){
+        if(parseInt(audioSound)){
+    if(audio)audio.load();
     
+    audio=new Audio("sound/Melodyjka.ogg");
+    audio.loop=true;
+    audio.volume=0.1;
     
+    audio.play();
+    
+}
+    }
     audio=false;
     buttonSound=localStorage.getItem('buttonSound') || 1;
-    audioSound=localStorage.getItem('audioSound') || 1;
+    audioSound=localStorage.getItem('buttonSound') || 1;
     
     if(localStorage.getItem('lastScore')){
         
