@@ -30,7 +30,15 @@
 </head>
 <body>
 <center><canvas id="canvas"></canvas></center>
+
+</script>
 <script>
+    
+    
+    audio=false;
+    buttonSound=localStorage.getItem('buttonSound') || 1;
+    audioSound=localStorage.getItem('audioSound') || 1;
+    
     if(localStorage.getItem('lastScore')){
         
     }else localStorage.setItem('lastScore',0);

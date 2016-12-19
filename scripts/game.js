@@ -23,12 +23,23 @@ ctx.font = Math.floor(canvas.width / 30) + "px foo";
 font = canvas.width / 30;
 
 animation=false;
+if(parseInt(audioSound)){
+    if(audio)audio.load();
+    
+    audio=new Audio("sound/Melodyjka.ogg");
+    audio.loop=true;
+    audio.volume=0.1;
+    
+    audio.play();
+    
+}
 
-
+//music.loop=true;
+//music.play();
 setButtons();
 ////////////////////////////BINARY START///////////////////////////////////////////////////
 binaryGame = function () {
-
+    audio.pause();
     game = true;
     menu = false;
     gamemode = 'bin';
@@ -59,6 +70,7 @@ binaryGame = function () {
 /////////////////////////////////////// FIBONACCI START //////////////////////////////////////////////////////
 
 fibGame = function () {
+    audio.pause();
     tmpFib[0] = 0;
     tmpFib[1] = 0;
     fibTxt = '';
@@ -143,7 +155,12 @@ canvas.addEventListener('touchstart', function (e) {
         for (var i = 0; i < buttons.length; i++) {
 
             if (mouseX >= buttons[i].x && mouseX <= buttons[i].x + buttons[i].w && mouseY >= buttons[i].y && mouseY <= buttons[i].y + buttons[i].h) {
-
+                if(parseInt(buttonSound)){
+                    var Baudio=new Audio("sound/button.ogg");
+                    
+                    Baudio.volume=0.1;
+                    Baudio.play();
+                }
                 buttons[i].onclick();
 
             }
@@ -155,7 +172,16 @@ canvas.addEventListener('touchstart', function (e) {
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
 function lose(why,i,o,y) {
     navigator.vibrate(500);
-  
+  if(parseInt(audioSound)){
+    if(audio)audio.pause();
+    
+    audio=new Audio("sound/Melodyjka.ogg");
+    audio.loop=true;
+    audio.volume=0.1;
+    
+    audio.play();
+    
+}
     
     
     if(why=='ooc'){

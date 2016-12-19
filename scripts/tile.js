@@ -23,9 +23,10 @@ var Tile = function (x, y, row_id, col_id, fSize,color) {
     
             ctx.font = this.fSize + 'px '+currFont;
             ctx.fillStyle = 'black';
-
+            if(gamemode=='bin'){
             ctx.fillText(this.value, this.x + canvas.width / 10, this.y + canvas.height / 5.1);
-
+            }else 
+                ctx.fillText(this.value, this.x + 20, this.y + canvas.height / 5.1);
         }
 
         this.update = function () {
@@ -115,6 +116,7 @@ var Particle=function(x,y){
         }
 
 }
+
 
         
  //DEBUG MODE POINT

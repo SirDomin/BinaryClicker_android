@@ -28,6 +28,9 @@ function setButtons() {
 
 ///////////////////////////////MAIN MENU///////////////////////
 function mainMenu() {
+  
+
+    
     napis = [];
     buttons = [];
     napis[0]=new Napis(canvas.width/6,canvas.height/7,'hsla(82, 0%, 51%, 1)',"Last Score: "+localStorage.getItem('lastScore'),canvas.height*0.06)
@@ -94,6 +97,8 @@ function mainMenu() {
                 for (var i = 0; i < buttons.length; i++) {
                     buttons[i].x += buttonsAnimSpeed;
                 }
+                
+                
             } else {
                 animation = false;
                 settings();
@@ -104,7 +109,7 @@ function mainMenu() {
 
     })
     
-if(localStorage.getItem('clicks')>400){
+if(localStorage.getItem('clicks')>1200){
 buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'white', 0, 'STATS', buttonfontSize, function () {
 
         this.img = buttonClk;
@@ -136,6 +141,7 @@ buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'white', 0, 'STATS
             }
         }
     }
+    
 
 
     menu = true;
@@ -144,6 +150,7 @@ buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'white', 0, 'STATS
 ////////////////////////////////GAME CHOICE MENU//////////////////////
 function newGame() {
     buttons = [];
+    napis=[];
 
 
     buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'Binary Game', canvas.width * 0.08, function () {
@@ -215,6 +222,7 @@ function newGame() {
                 delete this.animate;
             }
         }
+        
     }
 
 }

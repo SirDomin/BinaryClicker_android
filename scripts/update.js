@@ -1,5 +1,5 @@
 function update() {
-
+   
     if (game) {
        if(!then)then=now;
 
