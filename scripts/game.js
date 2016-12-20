@@ -115,7 +115,7 @@ canvas.addEventListener('touchstart', function (e) {
     
     if (game && mouseY > canvas.height / 10&&!animate) {
 
-        for (var i = 0; i <= 4; i++) {
+        for (var i = 0; i < 1; i++) {
             for (var o = 0; o < 3; o++) {
 
                 if (mouseX >= tiles[i][o].x && mouseX <= tiles[i][o].x + canvas.width / 3 && mouseY >= tiles[i][o].y && mouseY <= tiles[i][o].y + canvas.height / 3){
@@ -123,7 +123,7 @@ canvas.addEventListener('touchstart', function (e) {
                         if (spr(tiles[i][o])) {
     
                         tiles[i][o].clicked = 1;
-                        points += tiles[i][o].value
+                        points += 1
                         if (gamemode == 'fib') {
                             tmpFib[0] = tmpFib[1];
                             tmpFib[1] = fibTxt = tiles[i][o].value;

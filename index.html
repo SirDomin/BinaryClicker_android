@@ -28,14 +28,28 @@
 
 </style>
 </head>
-<body>
+<body onload="onload()">
 <center><canvas id="canvas"></canvas></center>
 
 </script>
 <script>
     
     
+function onload(){
     
+    
+    document.addEventListener("deviceready",ondeviceready,false);
+}
+    
+    function ondeviceready(){
+        document.addEventListener("backbutton",backKeyDown,false);
+    }
+    
+    
+    
+    function backKeyDown(){
+        mainMenu();
+    }
     
     
     audio=new Audio("sound/LYSY_GAMES.ogg");
@@ -130,7 +144,7 @@
                         }
                     }
                      fibo++;
-                    console.log(fibo)
+               
 
                     break;
 
@@ -219,6 +233,7 @@ seconds = Math.floor(((ms % 360000) % 60000) / 1000) // 1 Second = 1000 Millisec
 return hours+"H "+minutes+"M "+seconds+"S ";    
     
 }
+
 </script>
 <script src="scripts/menu.js"></script>
 <script src="scripts/tile.js"></script>
