@@ -10,7 +10,8 @@ function render() {
         for (var i = 0; i < 5; i++) {
 
             for (var o = 0; o < 3; o++) {
-                tiles[i][o].update();
+                 if(updating)tiles[i][o].update();
+                    else then=now;
                 tiles[i][o].render();
 
             }
@@ -49,8 +50,8 @@ function render() {
         
         ctx.fillStyle = 'white';
 
-        ctx.font = Math.floor(canvas.width*0.1)+"px "+(localStorage.getItem('font') || 'burnstown')  ;
-        ctx.fillText('BINARY CLICKER', canvas.width / 4-(localStorage.getItem('startfSize') || Math.floor(canvas.width*0.08)), canvas.height / 12);
+        ctx.font = Math.floor(canvas.width*0.1)+"px "+(localStorage.getItem('font') || 'SourceSerifPro')  ;
+        ctx.fillText('BINARY CLICKER', canvas.width / 4-startfSize, canvas.height / 12);
 
 
 

@@ -28,13 +28,13 @@ function setButtons() {
 
 ///////////////////////////////MAIN MENU///////////////////////
 function mainMenu() {
-  
+  currMenu='mainMenu';
 
     
     napis = [];
     buttons = [];
     napis[0]=new Napis(canvas.width/6,canvas.height/7,'hsla(82, 0%, 51%, 1)',"Last Score: "+localStorage.getItem('lastScore'),canvas.height*0.06)
-    buttons[0] = new Button(-buttonW, button1Y, buttonW, buttonH, 'white', 0, 'New Game', buttonfontSize, function () {
+    buttons[0] = new Button(-buttonW, button1Y, buttonW, buttonH, 'black', 0, 'New Game', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -50,7 +50,7 @@ function mainMenu() {
 
     })
 
-    buttons[1] = new Button(-buttonW, button2Y, buttonW, buttonH, 'white', 0, 'Info', buttonfontSize, function () {
+    buttons[1] = new Button(-buttonW, button2Y, buttonW, buttonH, 'black', 0, 'Info', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -68,7 +68,7 @@ function mainMenu() {
 
     })
 
-    buttons[2] = new Button(-buttonW, button3Y, buttonW, buttonH, 'white', 0, 'Scores', buttonfontSize, function () {
+    buttons[2] = new Button(-buttonW, button3Y, buttonW, buttonH, 'black', 0, 'Scores', buttonfontSize, function () {
 
         this.img = buttonClk;
         animation = true;
@@ -87,7 +87,7 @@ function mainMenu() {
 
     })
 
-    buttons[3] = new Button(-buttonW, button4Y, buttonW, buttonH, 'white', 0, 'Settings', buttonfontSize, function () {
+    buttons[3] = new Button(-buttonW, button4Y, buttonW, buttonH, 'black', 0, 'Settings', buttonfontSize, function () {
 
         this.img = buttonClk;
         animation = true;
@@ -110,7 +110,7 @@ function mainMenu() {
     })
     
 if(localStorage.getItem('clicks')>1200){
-buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'white', 0, 'STATS', buttonfontSize, function () {
+buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'black', 0, 'STATS', buttonfontSize, function () {
 
         this.img = buttonClk;
         animation = true;
@@ -151,9 +151,9 @@ buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'white', 0, 'STATS
 function newGame() {
     buttons = [];
     napis=[];
+currMenu='newGame';
 
-
-    buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'Binary Game', canvas.width * 0.08, function () {
+    buttons[buttons.length] = new Button(canvas.width, button1Y, buttonW, buttonH, 'black', 0, 'Binary Game', canvas.width * 0.08, function () {
         animation = true;
         this.img = buttonClk;
         this.animate = function () {
@@ -167,11 +167,18 @@ function newGame() {
                 binaryGame();
             }
         }
+    })  
+    
+    buttons[buttons.length] = new Button(canvas.width+1000, button1Y, buttonW/5, buttonH, 'black', 0, '?', canvas.width * 0.08, function () {
+        alert = new Alert('', 'red', canvas.width * 0.08, 5,'BINARY','Dont tap 0 !');
     })
+    buttons[buttons.length-1].type='help';
+    
+
 
     if (localStorage.getItem('bin') > 300) {
 
-        buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'Fibonacci', buttonfontSize, function () {
+        buttons[buttons.length] = new Button(canvas.width, button2Y, buttonW, buttonH, 'black', 0, 'Fibonacci', buttonfontSize, function () {
             this.img = buttonClk;
             animation = true;
             this.animate = function () {
@@ -186,17 +193,52 @@ function newGame() {
                 }
             }
         })
+            buttons[buttons.length] = new Button(canvas.width+1000, button2Y, buttonW/5, buttonH, 'black', 0, '?', canvas.width * 0.08, function () {
+        alert = new Alert('', 'red', canvas.width * 0.05, 5,'Fibonacci: number after the first two ','is the sum of the two preceding ones','Example: 1+1=2 then 1+2=3 so 2+3=5');
+    })
+    buttons[buttons.length-1].type='help';
 
     } else {
 
-        buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'LOCKED', buttonfontSize, function () {
+        buttons[buttons.length] = new Button(canvas.width, button2Y, buttonW, buttonH, 'red', 0, 'LOCKED', buttonfontSize, function () {
             navigator.vibrate(500);
             alert = new Alert('get 300 in binary to unlock', 'red', canvas.width * 0.08, 10);
         })
 
     }
-
-    buttons[2] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+if(localStorage.getItem('bin')>300){
+    if(localStorage.getItem('fib')>50){
+        buttons[buttons.length] = new Button(canvas.width, button3Y, buttonW, buttonH, 'black', 0, 'Prime Numbers', canvas.width * 0.065, function () {
+            animation = true;
+            this.img = buttonClk;
+            this.animate = function () {
+                if (this.y < canvas.height) {
+                    for (var i = 0; i < buttons.length; i++) {
+                        buttons[i].y += buttonsAnimSpeed;
+                    }
+                } else {
+                    buttons=[];
+                    animation = false;
+                    primGame();
+                }
+            }
+            
+        })
+        
+     buttons[buttons.length] = new Button(canvas.width+1000, button3Y, buttonW/5, buttonH, 'black', 0, '?', canvas.width * 0.08, function () {
+        alert = new Alert('', 'red', canvas.width * 0.05, 5,'A PRIME NUMBER is a natural number','greater than 1 that has no positive','divisors other than 1 and itself');
+    })
+    buttons[buttons.length-1].type='help';
+    }else {
+        buttons[buttons.length] = new Button(canvas.width, button3Y, buttonW, buttonH, 'red', 0, 'LOCKED', buttonfontSize, function () {
+            navigator.vibrate(500);
+            alert = new Alert('get 50 in fibonacci to unlock', 'red', canvas.width * 0.07, 10);
+        })
+    }
+}
+    
+    
+    buttons[buttons.length] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -215,12 +257,23 @@ function newGame() {
     })
     animation = true;
     for (var i = 0; i < buttons.length; i++) {
+        if(!buttons[i].type){
         buttons[i].animate = function () {
             if (this.x > buttonX) this.x -= buttonsAnimSpeed;
             else {
                 animation = false;
                 delete this.animate;
             }
+        }
+        }else if(buttons[i].type=='help'){
+            
+            buttons[i].animate = function () {
+            if (this.x > buttonX+buttonW+buttonW/10) this.x -= buttonsAnimSpeed;
+            else {
+                animation = false;
+                delete this.animate;
+            }
+        }
         }
         
     }
@@ -231,9 +284,9 @@ function newGame() {
 function highScore() {
     buttons = [];
     napis = [];
+    currMenu='highScore';
 
-
-    buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[buttons.length] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -261,9 +314,9 @@ function highScore() {
         }
     }
 
-    napis[0] = new Napis(canvas.width, canvas.height / 5, 'white', 'LEADERBOARDS', buttonfontSize);
-    napis[1] = new Napis(canvas.width, button2Y, 'hsla(82, 0%, 51%, 1)', 'Binary game:');
-    napis[2] = new Napis(canvas.width, canvas.height / 2.4, 'white', 'High Score: ' + localStorage.getItem('bin') || 0);
+    napis[0] = new Napis(canvas.width, canvas.height / 5, 'white', 'HIGHSCORES:', buttonfontSize);
+    napis[1] = new Napis(canvas.width, canvas.height / 3.6, 'hsla(82, 0%, 51%, 1)', 'Binary game:');
+    napis[2] = new Napis(canvas.width, canvas.height / 3, 'white', 'High Score: ' + localStorage.getItem('bin') || 0);
     napis[2].animate = function () {
         if (this.x > 50) this.x -= buttonsAnimSpeed;
     }
@@ -275,12 +328,23 @@ function highScore() {
     }
 
     if (localStorage.getItem('fib') > 0) {
-        napis[3] = new Napis(canvas.width, canvas.height / 1.8, 'hsla(82, 0%, 51%, 1)', 'Fibonacci:');
+        napis[3] = new Napis(canvas.width, canvas.height / 2.4, 'hsla(82, 0%, 51%, 1)', 'Fibonacci:');
         napis[3].animate = function () {
             if (this.x > canvas.width / 5) this.x -= buttonsAnimSpeed;
         }
-        napis[4] = new Napis(canvas.width, canvas.height / 1.56, 'white', 'High Score: ' + localStorage.getItem('fib'),buttonfontSize);
+        napis[4] = new Napis(canvas.width, canvas.height / 2.1, 'white', 'High Score: ' + localStorage.getItem('fib'),buttonfontSize);
         napis[4].animate = function () {
+            if (this.x > 50) this.x -= buttonsAnimSpeed;
+        }
+    }
+    
+      if (localStorage.getItem('prm') > 0) {
+        napis[5] = new Napis(canvas.width, canvas.height / 1.8, 'hsla(82, 0%, 51%, 1)', 'Prime Numbers:');
+        napis[5].animate = function () {
+            if (this.x > canvas.width / 5) this.x -= buttonsAnimSpeed;
+        }
+        napis[6] = new Napis(canvas.width, canvas.height / 1.6, 'white', 'High Score: ' + localStorage.getItem('prm'),buttonfontSize);
+        napis[6].animate = function () {
             if (this.x > 50) this.x -= buttonsAnimSpeed;
         }
     }
@@ -291,6 +355,7 @@ function highScore() {
 function info() {
     buttons = [];
     napis = [];
+    currMenu='info';
     napis[0] = new Napis(canvas.width, canvas.height / 4, 'white', 'GAME BY:');
     napis[0].animate = function () {
         if (this.x > canvas.width / 6) this.x -= buttonsAnimSpeed;
@@ -321,7 +386,7 @@ function info() {
         if (this.x > canvas.width / 6) this.x -= buttonsAnimSpeed;
         else delete this.animate;
     }
-    buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[buttons.length] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -355,7 +420,8 @@ function info() {
 function settings() {
     buttons = [];
     napis = [];
-    buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'Fonts', buttonfontSize, function () {
+    currMenu='settings';
+    buttons[buttons.length] = new Button(canvas.width, button1Y, buttonW, buttonH, 'black', 0, 'Fonts', buttonfontSize, function () {
         animation = true;
         this.img = buttonClk;
         this.animate = function () {
@@ -373,7 +439,7 @@ function settings() {
     });
 
 
-    buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'Particles', buttonfontSize, function () {
+    buttons[buttons.length] = new Button(canvas.width, button2Y, buttonW, buttonH, 'black', 0, 'Particles', buttonfontSize, function () {
         if (particles) {
 
             buttons[1].img = buttonClk;
@@ -393,7 +459,7 @@ function settings() {
         buttons[1].img = buttonClk;
     } else buttons[1].img = buttonImg;
     
-        buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'white', 0, 'Music', buttonfontSize, function () {
+        buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'black', 0, 'Music', buttonfontSize, function () {
         if (parseInt(buttonSound)) {
 
             buttons[2].img = buttonClk;
@@ -422,7 +488,7 @@ function settings() {
 
 
 
-    buttons[3] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[3] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -454,9 +520,10 @@ function settings() {
 ///////////////////////////////////FONTS/////////////////////////////
 
 function fonts() {
-    buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'white', 0, 'test', buttonfontSize, function () {
-        currFont = 'burnstown';
-        localStorage.setItem('font', 'burnstown');
+    currMenu='fonts';
+    buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'black', 0, 'test', buttonfontSize, function () {
+        currFont = 'BalooThambi';
+        localStorage.setItem('font', 'BalooThambi');
         startfSize = canvas.width * 0.08;
         localStorage.setItem('startfSize', startfSize);
 
@@ -464,45 +531,45 @@ function fonts() {
         buttons[1].img = buttonImg;
         buttons[2].img = buttonImg;
         buttons[3].img = buttonImg;
-    }, 'burnstown');
+    }, 'BalooThambi');
 
-    buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'white', 0, 'test', buttonfontSize, function () {
-        currFont = 'foo';
-        localStorage.setItem('font', 'foo');
-        startfSize = canvas.width * 0.12;
+    buttons[1] = new Button(canvas.width, button2Y, buttonW, buttonH, 'black', 0, 'test', buttonfontSize, function () {
+        currFont = 'IrishGrover';
+        localStorage.setItem('font', 'IrishGrover');
+        startfSize = canvas.width * 0.15;
         localStorage.setItem('startfSize', startfSize);
 
         buttons[0].img = buttonImg;
         buttons[1].img = buttonClk;
         buttons[2].img = buttonImg;
         buttons[3].img = buttonImg;
-    }, 'foo')
+    }, 'IrishGrover')
 
-    buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'white', 0, 'test', buttonfontSize, function () {
-        currFont = 'pricedown';
-        localStorage.setItem('font', 'pricedown');
-        startfSize = canvas.width * 0.05;
+    buttons[2] = new Button(canvas.width, button3Y, buttonW, buttonH, 'black', 0, 'test', buttonfontSize, function () {
+        currFont = 'SourceSerifPro';
+        localStorage.setItem('font', 'SourceSerifPro');
+        startfSize = canvas.width * 0.15;
         localStorage.setItem('startfSize', startfSize);
 
         buttons[0].img = buttonImg;
         buttons[1].img = buttonImg;
         buttons[2].img = buttonClk;
         buttons[3].img = buttonImg;
-    }, 'pricedown')
+    }, 'SourceSerifPro')
 
-    buttons[3] = new Button(canvas.width, button4Y, buttonW, buttonH, 'white', 0, 'test', buttonfontSize, function () {
-        currFont = 'Wunderbarch';
-        localStorage.setItem('font', 'Wunderbarch');
-        startfSize = canvas.width * 0.15;
+    buttons[3] = new Button(canvas.width, button4Y, buttonW, buttonH, 'black', 0, 'test', buttonfontSize, function () {
+        currFont = 'PermanentMarker';
+        localStorage.setItem('font', 'PermanentMarker');
+        startfSize = canvas.width * 0.17;
         localStorage.setItem('startfSize', startfSize);
 
         buttons[0].img = buttonImg;
         buttons[1].img = buttonImg;
         buttons[2].img = buttonImg;
         buttons[3].img = buttonClk;
-    }, 'Wunderbarch')
+    }, 'PermanentMarker')
 
-    buttons[4] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+    buttons[4] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -519,19 +586,19 @@ function fonts() {
         };
     })
     switch (currFont) {
-        case "burnstown":
+        case "BalooThambi":
             buttons[0].img = buttonClk;
             break;
 
-        case "foo":
+        case "IrishGrover":
             buttons[1].img = buttonClk;
             break;
 
-        case "pricedown":
+        case "SourceSerifPro":
             buttons[2].img = buttonClk;
             break;
 
-        case "Wunderbarch":
+        case "PermanentMarker":
             buttons[3].img = buttonClk;
             break;
 
@@ -555,7 +622,7 @@ function fonts() {
 function stats(){
     buttons=[];
     napis=[];
-    
+    currMenu='stats';
     napis[0] = new Napis(canvas.width, canvas.height / 5, 'white', 'Statistics', buttonfontSize);
     napis[1] = new Napis(canvas.width, button2Y, 'hsla(82, 0%, 51%, 1)', 'You have clicked ');
     napis[2] = new Napis(canvas.width, canvas.height / 2.4, 'hsla(110, 100%, 50%, 1)', localStorage.getItem('clicks') || 0); 
@@ -593,7 +660,7 @@ function stats(){
         if (this.x > canvas.width / 7) this.x -= buttonsAnimSpeed;
     }
     
-buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'white', 0, '< Back', buttonfontSize, function () {
+buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '< Back', buttonfontSize, function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {

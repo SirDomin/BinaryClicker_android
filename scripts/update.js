@@ -19,7 +19,7 @@ function update() {
 
                 ///////////////////////MAKE IT WORK ONLY AT 5 ROWS !!!!!!!!!//////////////
                 newValue(0, gamemode);
-                rows++;
+               // rows++;
 
                 for (var i = 0; i <= 2; i++) {
 

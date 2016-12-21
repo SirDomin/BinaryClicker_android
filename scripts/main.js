@@ -6,7 +6,7 @@ function main() {
 
    
     
-    update();
+   update();
     render();
 
     requestAnimationFrame(main);

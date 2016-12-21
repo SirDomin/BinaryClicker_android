@@ -1,4 +1,5 @@
 <head>
+
 <style>
     body {
         margin: 0 !important;
@@ -7,20 +8,20 @@
 
     
     @font-face {
-        font-family: burnstown;
-        src: url('fonts/burnstown dam.ttf');
+        font-family: BalooThambi;
+        src: url('fonts/BalooThambi-Regular.ttf');
     }
     @font-face {
-        font-family: foo;
-        src: url('fonts/foo.ttf');
+        font-family: IrishGrover;
+        src: url('fonts/IrishGrover.ttf');
     }
     @font-face {
-        font-family: pricedown;
-        src: url('fonts/pricedown bl.ttf');
+        font-family: SourceSerifPro;
+        src: url('fonts/SourceSerifPro-Regular.ttf');
     } 
     @font-face {
-        font-family: Wunderbarch;
-        src: url('fonts/WC_Wunderbach_Rough.ttf');
+        font-family: PermanentMarker;
+        src: url('fonts/PermanentMarker.ttf');
     }
  
 
@@ -28,27 +29,64 @@
 
 </style>
 </head>
-<body onload="onload()">
+<body>
 <center><canvas id="canvas"></canvas></center>
 
-</script>
+
+  <script src="cordova.js"></script>
 <script>
     
-    
-function onload(){
-    
-    
-    document.addEventListener("deviceready",ondeviceready,false);
-}
-    
-    function ondeviceready(){
-        document.addEventListener("backbutton",backKeyDown,false);
+updating=true;
+    function onPause() {
+        
+        if(game){
+       lose();
+        losuj=true;
+        
     }
+    }
+
+
     
-    
-    
-    function backKeyDown(){
-        mainMenu();
+    function onBackKeyDown() {
+        
+        
+        if(currMenu=='mainMenu'){
+    	       navigator.notification.confirm(
+                    'Are you sure you want to exit?', // message
+                     onConfirm,            // callback to invoke with index of button pressed
+                    'Confirm exit',           // title
+                    ['Yes !','Nope']     // buttonLabels
+                );
+        
+            function onConfirm(buttonIndex) {
+                if (buttonIndex == 1) {
+                    navigator.app.exitApp();
+                }
+            }
+        }else if(!game) {
+            
+           buttons[buttons.length-1].onclick();
+            
+        }else if(game){
+            updating=false;
+                  navigator.notification.confirm(
+                    'Are you sure you want to exit game?', // message
+                     onConfirmG,            // callback to invoke with index of button pressed
+                    'Confirm exit',           // title
+                    ['Yes !','Nope']     // buttonLabels
+                );
+        
+            function onConfirmG(buttonIndex) {
+                if (buttonIndex == 1) {
+                    lose();
+                     losuj=true;
+                }else {
+                    updating=true;
+                }
+            }
+            
+        }
     }
     
     
@@ -101,7 +139,8 @@ function onload(){
     napis = [];
 
     newValue = function(n, mode) {
-
+            rows++;
+        if(rows>=100)rows=1;
             rand = Math.floor(Math.random() * 3);
 
             switch (mode) {
@@ -147,6 +186,29 @@ function onload(){
                
 
                     break;
+                    
+                case 'prm':
+                    
+                       for (var i = 0; i <= 2; i++) {
+                            
+
+                        if (i == rand) {
+
+                            tiles[n][i].value =primNumbers[rows-1];
+                                
+                            
+                            tiles[n][i].ok = 1;
+
+                        } else {
+
+        tiles[n][i].value =Math.floor(Math.random()*primNumbers[rows]+primNumbers[rows-1]);
+                            tiles[n][i].ok = 0;
+
+                        }
+                    }
+                    
+                    
+                 break;
 
             }
         }
@@ -173,6 +235,18 @@ function onload(){
 
                     if (arg.value in tablicaFib) return true;
 
+                    break;
+                    
+                    
+                case 'prm':
+                    
+                    for(var i=0;i<primNumbers.length;i++){
+                        if(arg.value==primNumbers[i]){
+                            
+                            return true;
+                            
+                        }
+                    }
                     break;
 
                     return false;

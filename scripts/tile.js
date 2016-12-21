@@ -45,7 +45,7 @@ var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
     this.h = h;
     this.fSize = Math.floor(fSize);
     this.id = id;
-    this.color = color;
+    this.color = color || 'black';
     this.onclick = onclick;
     this.napis = napis;
     this.font=font;
@@ -60,8 +60,8 @@ var Button = function (x, y, w, h, color, id, napis, fSize, onclick,font) {
         
         
            
-   
-        ctx.fillStyle = 'black';
+        
+        ctx.fillStyle = this.color;
         ctx.fillText(this.napis, this.x +5, this.y +this.fSize*1.5);
 
     }
@@ -73,7 +73,7 @@ var Napis = function (x, y, color, napis, fSize) {
     this.color = color;
     this.napis = napis;
     this.fSize = Math.floor(fSize);
-    if(this.napis.length>=14)this.fSize-=((this.napis.length-16)*this.fSize/30)
+    //if(this.napis.length>=14)this.fSize-=((this.napis.length-16)*this.fSize/30)
     this.render = function () {
        
         ctx.font = this.fSize + "px "+currFont;
@@ -82,21 +82,48 @@ var Napis = function (x, y, color, napis, fSize) {
     }
 }
 
-var Alert = function (napis, color,fSize,xPos) {
+var Alert = function (napisik, color,fSize,xPos,arg2,arg3,arg4) {
    
         this.fSize=Math.floor(fSize);
-        this.napis = napis;
+        this.napis = napisik;
         this.color = color;
         this.time = now;
-        this.y = canvas.height / 2;
+        this.y = canvas.height / 2.04;
         this.x = xPos;
+        this.napisId=napis.length
+        this.napisId2=napis.length+1;       
+        this.napisId3=napis.length+2;       
+        this.napisId4=napis.length+3;       
+        this.arg2=arg2 || ' ';
+        this.arg3=arg3 || ' ';
+        this.arg4=arg4 || ' ';
+    
+    
+        napis[this.napisId] = new Napis(canvas.width/10, canvas.height / 1.2, 'hsla(110, 100%, 50%, 1) ','Tap to continue...');
+        napis[this.napisId2] = new Napis(10, canvas.height / 5, 'hsla(110, 100%, 50%, 1) ',this.arg2,this.fSize);
+        napis[this.napisId3] = new Napis(10, canvas.height / 4, 'hsla(110, 100%, 50%, 1) ',this.arg3,this.fSize);
+        napis[this.napisId4] = new Napis(10, canvas.height / 3.3, 'hsla(110, 100%, 50%, 1) ',this.arg4,this.fSize);
+    
+    
+           
+        
+       
         this.render = function () {
+            ctx.fillStyle='black';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            
+                
+                napis[this.napisId].render();
+                napis[this.napisId2].render();
+                napis[this.napisId3].render();
+                napis[this.napisId4].render();
+               
+                
+            
             ctx.font=this.fSize+"px "+currFont;
             ctx.fillStyle = this.color;
             ctx.fillText(this.napis, this.x, this.y);
-            if (now - this.time >= 1000) {
-                alert = false;
-            }
+         
         }
     }
 

@@ -8,6 +8,44 @@ canvas.height = window.innerHeight;
 
 //canvas.width =480
 //canvas.height=640;
+primNumbers=[];
+primTab=[];
+iter=0;
+iterTab=0;
+
+
+
+function Testuj(p)
+{
+  var i;
+
+  i = 2;
+  while(i < p) if(!(p % i++)) return 0;
+  return 1;
+}
+
+
+  var s,ile,lp,p;
+
+  ile = 100;
+
+    lp = 0; p = 2;
+    while(lp < ile)
+    {
+      if(Testuj(p))
+      {
+        primNumbers[lp]=p;
+          
+          lp++;
+      }
+      p++;
+    }
+  
+
+
+
+
+currMenu='mainMenu';
 prompt=false;
 alert = false;
 point = [];
@@ -17,9 +55,9 @@ menu = true;
 tileRows=0;
 speed = 0;
 ctx = canvas.getContext("2d");
-ctx.font = Math.floor(canvas.width / 30) + "px foo";
-    startfSize=localStorage.getItem('startfSize') || Math.floor(canvas.width*0.08);
-    currFont=localStorage.getItem('font') || 'burnstown'  ;
+
+    startfSize=localStorage.getItem('startfSize') || Math.floor( canvas.width * 0.15);
+    currFont=localStorage.getItem('font') || 'SourceSerifPro' ;
 font = canvas.width / 30;
 
 animation=false;
@@ -97,14 +135,44 @@ fibGame = function () {
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+primGame=function(){
+    
+    gamemode = 'prm';
+    game = true;
+    menu = false;
+    tiles = [];
+    speed = canvas.height / 450;
+    points = 0;
+    rows = 0;
 
+    
+    for (var i = 0; i < 5; i++) {
+
+        tiles[i] = [];
+
+        for (var o = 0; o < 3; o++) {
+
+            x = i + 1;
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,'white');
+
+        }
+       
+        newValue(i, gamemode);
+
+    }
+
+    tiles[5] = [];
+}
 
 
 mainMenu();
 
 
+document.addEventListener("pause", onPause, false);
 
 
+
+document.addEventListener("backbutton",onBackKeyDown,false);
 
 canvas.addEventListener('touchstart', function (e) {
 
@@ -130,7 +198,7 @@ canvas.addEventListener('touchstart', function (e) {
                             fibTxt = tmpFib[0] + "+" + tmpFib[1] + "= ?";
                         }
     
-                        if (rows >= 1) delete tablicaFib[tiles[i][o].value];
+                        if (rows >= 6) delete tablicaFib[tiles[i][o].value];
     
                     } else {
     
@@ -141,28 +209,38 @@ canvas.addEventListener('touchstart', function (e) {
             }
         }
     }
-    if (menu&&!animation) {
+    if (menu&&!animation&&!alert) {
 
         for (var i = 0; i < buttons.length; i++) {
 
             if (mouseX >= buttons[i].x && mouseX <= buttons[i].x + buttons[i].w && mouseY >= buttons[i].y && mouseY <= buttons[i].y + buttons[i].h) {
-                if(parseInt(buttonSound)){
-                    var Baudio=new Audio("sound/button.ogg");
+                
                     
-                    Baudio.volume=0.3;
-                    Baudio.play();
-                }
-                buttons[i].onclick();
+                        if(parseInt(buttonSound)){
+                            var Baudio=new Audio("sound/button.ogg");
+                            
+                            Baudio.volume=0.3;
+                            Baudio.play();
+                        }
+                        buttons[i].onclick();
+             
 
             }
         }
 
+    }else if(alert){
+        delete napis[alert.napisId];
+        delete napis[alert.napisId2];
+        delete napis[alert.napisId4];
+        delete napis[alert.napisId3];
+        alert=false;
+        
     }
 })
 
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
 function lose(why,i,o,y) {
-    navigator.vibrate(500);
+    
   if(parseInt(audioSound)){
     if(audio)audio.pause();
     
@@ -176,6 +254,7 @@ function lose(why,i,o,y) {
     
     
     if(why=='ooc'){
+        navigator.vibrate(500);
         tiles[0][0].color='red';
         tiles[0][1].color='red';
         tiles[0][2].color='red';
@@ -202,6 +281,7 @@ function lose(why,i,o,y) {
                 }
             }
     }else if(why=='click'){
+        navigator.vibrate(500);
         tiles[i][o].color='red';
         var y=y;
             animate=function(){
@@ -228,6 +308,16 @@ function lose(why,i,o,y) {
                 }
                 }
             }
+    }else{
+      
+        speed=0;
+menu=true;
+animate=false;
+game = false;
+
+        updating=true;
+        then=0;
+         mainMenu()
     }
     
 
