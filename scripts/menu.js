@@ -34,7 +34,7 @@ function mainMenu() {
     napis = [];
     buttons = [];
     napis[0]=new Napis(canvas.width/6,canvas.height/7,'hsla(82, 0%, 51%, 1)',"Last Score: "+localStorage.getItem('lastScore'),canvas.height*0.06)
-    buttons[0] = new Button(-buttonW, button1Y, buttonW, buttonH, 'black', 0, 'New Game', buttonfontSize, function () {
+    buttons[0] = new Button(-buttonW, button1Y, buttonW, buttonH, 'black', 0, 'New Game', Math.floor(canvas.height *0.05), function () {
         this.img = buttonClk;
         animation = true;
         this.animate = function () {
@@ -109,7 +109,7 @@ function mainMenu() {
 
     })
     
-if(localStorage.getItem('clicks')>1200){
+if(localStorage.getItem('clicks')>3200){
 buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'black', 0, 'STATS', buttonfontSize, function () {
 
         this.img = buttonClk;
@@ -202,7 +202,7 @@ currMenu='newGame';
 
         buttons[buttons.length] = new Button(canvas.width, button2Y, buttonW, buttonH, 'red', 0, 'LOCKED', buttonfontSize, function () {
             navigator.vibrate(500);
-            alert = new Alert('get 300 in binary to unlock', 'red', canvas.width * 0.08, 10);
+            alert = new Alert('', 'red', canvas.width * 0.08, 10,'get 300 in binary','to unlock this mode');
         })
 
     }
@@ -232,7 +232,7 @@ if(localStorage.getItem('bin')>300){
     }else {
         buttons[buttons.length] = new Button(canvas.width, button3Y, buttonW, buttonH, 'red', 0, 'LOCKED', buttonfontSize, function () {
             navigator.vibrate(500);
-            alert = new Alert('get 50 in fibonacci to unlock', 'red', canvas.width * 0.07, 10);
+            alert = new Alert('', 'red', canvas.width * 0.07, 10,'get 50 in fibonacci ','to unlock this mode');
         })
     }
 }
@@ -524,7 +524,7 @@ function fonts() {
     buttons[0] = new Button(canvas.width, button1Y, buttonW, buttonH, 'black', 0, 'test', buttonfontSize, function () {
         currFont = 'BalooThambi';
         localStorage.setItem('font', 'BalooThambi');
-        startfSize = canvas.width * 0.08;
+        startfSize = canvas.width * 0.13;
         localStorage.setItem('startfSize', startfSize);
 
         this.img = buttonClk;
