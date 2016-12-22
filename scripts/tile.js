@@ -1,6 +1,5 @@
 var Tile = function (x, y, row_id, col_id, fSize,color) {
         
-        
         this.x = x;
         this.y = y;
         this.row_id = row_id;
@@ -17,8 +16,9 @@ var Tile = function (x, y, row_id, col_id, fSize,color) {
                 ctx.fillStyle="black";
                 ctx.fillRect(this.x,this.y,this.w,this.h)
             
-                ctx.fillStyle=this.color;
-                ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
+                if(rows%100!=0)ctx.fillStyle=this.color;
+                    else  ctx.fillStyle='hsla(110, 100%, 50%, 1)';
+            ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
             
     
             ctx.font = this.fSize + 'px '+currFont;
@@ -100,9 +100,9 @@ var Alert = function (napisik, color,fSize,xPos,arg2,arg3,arg4) {
     
     
         napis[this.napisId] = new Napis(canvas.width/10, canvas.height / 1.2, 'hsla(110, 100%, 50%, 1) ','Tap to continue...');
-        napis[this.napisId2] = new Napis(10, canvas.height / 5, 'hsla(110, 100%, 50%, 1) ',this.arg2,this.fSize);
-        napis[this.napisId3] = new Napis(10, canvas.height / 4, 'hsla(110, 100%, 50%, 1) ',this.arg3,this.fSize);
-        napis[this.napisId4] = new Napis(10, canvas.height / 3.3, 'hsla(110, 100%, 50%, 1) ',this.arg4,this.fSize);
+        napis[this.napisId2] = new Napis(10, canvas.height / 5, 'white',this.arg2,this.fSize);
+        napis[this.napisId3] = new Napis(10, canvas.height / 4, 'white',this.arg3,this.fSize);
+        napis[this.napisId4] = new Napis(10, canvas.height / 3.3, 'white',this.arg4,this.fSize);
     
     
            

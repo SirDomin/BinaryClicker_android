@@ -176,7 +176,7 @@ currMenu='newGame';
     
 
 
-    if (localStorage.getItem('bin') > 300) {
+    if (localStorage.getItem('bin') >= 300) {
 
         buttons[buttons.length] = new Button(canvas.width, button2Y, buttonW, buttonH, 'black', 0, 'Fibonacci', buttonfontSize, function () {
             this.img = buttonClk;
@@ -206,8 +206,8 @@ currMenu='newGame';
         })
 
     }
-if(localStorage.getItem('bin')>300){
-    if(localStorage.getItem('fib')>50){
+if(localStorage.getItem('bin')>=300){
+    if(localStorage.getItem('fib')>=20||localStorage.getItem('bin')>=450){
         buttons[buttons.length] = new Button(canvas.width, button3Y, buttonW, buttonH, 'black', 0, 'Prime Numbers', canvas.width * 0.065, function () {
             animation = true;
             this.img = buttonClk;
@@ -232,7 +232,7 @@ if(localStorage.getItem('bin')>300){
     }else {
         buttons[buttons.length] = new Button(canvas.width, button3Y, buttonW, buttonH, 'red', 0, 'LOCKED', buttonfontSize, function () {
             navigator.vibrate(500);
-            alert = new Alert('', 'red', canvas.width * 0.07, 10,'get 50 in fibonacci ','to unlock this mode');
+            alert = new Alert('', 'red', canvas.width * 0.07, 10,'get 20 in fibonacci ','or 450 in binary','to unlock this mode');
         })
     }
 }

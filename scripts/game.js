@@ -27,7 +27,7 @@ function Testuj(p)
 
   var s,ile,lp,p;
 
-  ile = 100;
+  ile = 105;
 
     lp = 0; p = 2;
     while(lp < ile)
