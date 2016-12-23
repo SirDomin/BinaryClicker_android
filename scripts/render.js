@@ -13,7 +13,7 @@ function render() {
                  if(updating)tiles[i][o].update();
                     else then=now;
                 tiles[i][o].render();
-
+                if(tiles[i][o].animate)tiles[i][o].animate();
             }
 
         }

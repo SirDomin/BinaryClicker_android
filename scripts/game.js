@@ -86,7 +86,7 @@ binaryGame = function () {
         for (var o = 0; o < 3; o++) {
 
             x = i + 3;
-            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.2,'white');
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.2,getColor());
 
         }
 
@@ -122,7 +122,7 @@ fibGame = function () {
         for (var o = 0; o < 3; o++) {
 
             x = i + 1;
-            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,'white');
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,getColor());
 
         }
        
@@ -153,7 +153,7 @@ primGame=function(){
         for (var o = 0; o < 3; o++) {
 
             x = i + 1;
-            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,'white');
+            tiles[i][o] = new Tile(o * canvas.width / 3, -x * canvas.height / 3, i, o,canvas.width*0.1,getColor());
 
         }
        
@@ -182,16 +182,34 @@ canvas.addEventListener('touchstart', function (e) {
    // particles[particles.length]=new Particle(mouseX,mouseY)
     
     if (game && mouseY > canvas.height / 10&&!animate) {
-
+        lastSpeed=speed;
+     longt=setTimeout(longtouch,200);
         for (var i = 0; i < 1; i++) {
             for (var o = 0; o < 3; o++) {
 
                 if (mouseX >= tiles[i][o].x && mouseX <= tiles[i][o].x + canvas.width / 3 && mouseY >= tiles[i][o].y && mouseY <= tiles[i][o].y + canvas.height / 3){
                     clicks++;
                         if (spr(tiles[i][o])) {
-    
-                        tiles[i][o].clicked = 1;
-                        points += 1
+                            tiles[i][o].color='hsla(110, 100%, 50%, 1)';
+                            if(!tiles[i][o].animate){
+                                points += 1;
+                           tiles[i][o].animate=function(){
+                               tiles[0][0].opacity-=.1;
+                               tiles[0][1].opacity-=.1;
+                               tiles[0][2].opacity-=.1;
+                          
+                             
+                               if(this.opacity<=-0.1){
+                                   
+                                   
+                         
+                                   this.animate=false;
+                                   this.clicked = 1; 
+                              
+                               } }
+                            }
+                            
+                 
                         if (gamemode == 'fib') {
                             tmpFib[0] = tmpFib[1];
                             tmpFib[1] = fibTxt = tiles[i][o].value;
@@ -238,6 +256,12 @@ canvas.addEventListener('touchstart', function (e) {
     }
 })
 
+canvas.addEventListener('touchend',function(){
+    if(game){
+        speed=lastSpeed;
+    clearTimeout(longt);
+    }
+})
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
 function lose(why,i,o,y) {
     
@@ -255,9 +279,9 @@ function lose(why,i,o,y) {
     
     if(why=='ooc'){
         navigator.vibrate(500);
-        tiles[0][0].color='red';
-        tiles[0][1].color='red';
-        tiles[0][2].color='red';
+        tiles[0][0].color='hsla(0, 100%, 39%, 1)';
+        tiles[0][1].color='hsla(0, 100%, 39%, 1)';
+        tiles[0][2].color='hsla(0, 100%, 39%, 1)';
             animate=function(){
                 speed=-5;
                 if(tiles[0][0].y<canvas.height-canvas.height/3){
@@ -282,7 +306,7 @@ function lose(why,i,o,y) {
             }
     }else if(why=='click'){
         navigator.vibrate(500);
-        tiles[i][o].color='red';
+        tiles[i][o].color='hsla(0, 100%, 39%, 1)';;
         var y=y;
             animate=function(){
                 speed=-5;
@@ -325,7 +349,6 @@ game = false;
     localStorage.setItem('clicks',clicks);
    
 }
-
 
 
 ////////////////////////////////////GET FREE POINTS(DEBUG ONLY)/////////////////////////////////////

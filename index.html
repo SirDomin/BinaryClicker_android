@@ -35,7 +35,23 @@
 
   <script src="cordova.js"></script>
 <script>
-    
+    kolory=[
+        'hsla(0, 0%, 100%, 1)',
+        'hsla(0, 0%, 100%, 1)',
+        'hsla(57, 100%, 68%, 1)',
+        'hsla(77, 100%, 68%, 1)',
+        'hsla(103, 100%, 68%, 1)',
+        'hsla(169, 100%, 68%, 1)',
+        'hsla(198, 100%, 68%, 1)',
+        'hsla(224, 100%, 68%, 1)',
+        'hsla(254, 100%, 68%, 1)',
+        'hsla(290, 100%, 68%, 1)',
+        'hsla(318, 100%, 68%, 1)',
+        'hsla(342, 100%, 68%, 1)'
+        
+    ]
+    kolorek=-1;
+    kolor=0;
 updating=true;
     function onPause() {
         
@@ -88,7 +104,13 @@ updating=true;
             
         }
     }
-    
+    function longtouch(){
+  
+       
+       if(gamemode!='bin')speed*=5;
+        else speed=speed+speed/2;
+}
+
     
     audio=new Audio("sound/LYSY_GAMES.ogg");
     audio.volume=1;
@@ -137,6 +159,7 @@ updating=true;
     tablicaFib[8] = true;
     gamemode = 0;
     napis = [];
+    lastSpeed=0;
 
     newValue = function(n, mode) {
             rows++;
@@ -307,6 +330,16 @@ seconds = Math.floor(((ms % 360000) % 60000) / 1000) // 1 Second = 1000 Millisec
 
 return hours+"H "+minutes+"M "+seconds+"S ";    
     
+}
+    
+function getColor(){
+    if(kolor%300==0){
+        if(kolorek<kolory.length-1)kolorek++;
+    kolor=0;
+    }
+    kolor++;
+    return kolory[kolorek];
+
 }
 
 </script>

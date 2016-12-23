@@ -8,16 +8,23 @@ var Tile = function (x, y, row_id, col_id, fSize,color) {
         this.value = 1;
         this.ok = 0;
         this.fSize = Math.floor(fSize);
-       
+        this.opacity=1;
         this.color=color;
         this.w=canvas.width/3;
         this.h=canvas.height/3;
+  
+    this.color=this.color.split(',').splice(0,3);
+     this.color[3]=" "+this.opacity+")";
+    this.color=this.color.toString();
         this.render = function () {
+            
+          
+           this.color=this.color.split(',').splice(0,3);
+             this.color[3]=" "+this.opacity+")";
+    this.color=this.color.toString();
                 ctx.fillStyle="black";
                 ctx.fillRect(this.x,this.y,this.w,this.h)
-            
-                if(rows%100!=0)ctx.fillStyle=this.color;
-                    else  ctx.fillStyle='hsla(110, 100%, 50%, 1)';
+                ctx.fillStyle=this.color;
             ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
             
     
@@ -33,6 +40,8 @@ var Tile = function (x, y, row_id, col_id, fSize,color) {
             this.y += speed;
 
         }
+      
+        
 
 
     }

@@ -8,7 +8,7 @@ function update() {
         if (tiles[0][0].y>= canvas.height || tiles[0][0].clicked || tiles[0][1].clicked || tiles[0][2].clicked) {
 
             //////////////////////////////////////IF OUT OF RENDERING CONTEXT AND NOT CLICKED/////////
-            if (tiles[0][0].clicked != 1 && tiles[0][1].clicked != 1 && tiles[0][2].clicked != 1) {
+            if (tiles[0][0].clicked != 1 && tiles[0][1].clicked != 1 && tiles[0][2].clicked != 1&&tiles[0][0].opacity==1 && tiles[0][1].opacity==1 && tiles[0][2].opacity==1) {
                 
                 lose('ooc');
                 losuj=false;
@@ -24,8 +24,14 @@ function update() {
                 for (var i = 0; i <= 2; i++) {
 
                     tiles[0][i].clicked = 0;
+                    tiles[0][i].opacity = 1;
+                    tiles[0][i].animate = false;
+                    tiles[0][i].color= getColor();
+              
                     tiles[0][i].y = tiles[4][i].y - canvas.height / 3;
                     tiles[5][i] = tiles[0][i];
+                    
+                    
                 }
 
 
