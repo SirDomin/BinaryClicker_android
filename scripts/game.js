@@ -75,7 +75,7 @@ binaryGame = function () {
     points = 0;
     rows = 0;
     speed = canvas.height / 96;
-
+currSpeed=speed;
     tiles = [];
     tiles[5] = [];
 
@@ -114,7 +114,7 @@ fibGame = function () {
     points = 0;
     rows = 0;
 
-    
+    currSpeed=speed;
     for (var i = 0; i < 5; i++) {
 
         tiles[i] = [];
@@ -142,6 +142,7 @@ primGame=function(){
     menu = false;
     tiles = [];
     speed = canvas.height / 450;
+    currSpeed=speed;
     points = 0;
     rows = 0;
 
@@ -176,21 +177,25 @@ document.addEventListener("backbutton",onBackKeyDown,false);
 
 canvas.addEventListener('touchstart', function (e) {
 
+    
     mouseX = e.changedTouches[0].pageX;
     mouseY = e.changedTouches[0].pageY + speed * 5;
     
    // particles[particles.length]=new Particle(mouseX,mouseY)
     
     if (game && mouseY > canvas.height / 10&&!animate) {
+        
         lastSpeed=speed;
-     longt=setTimeout(longtouch,200);
-        for (var i = 0; i < 1; i++) {
+        
+         longt=setTimeout(longtouch,200);
+        
+            for (var i = 0; i < 1; i++) {
             for (var o = 0; o < 3; o++) {
 
                 if (mouseX >= tiles[i][o].x && mouseX <= tiles[i][o].x + canvas.width / 3 && mouseY >= tiles[i][o].y && mouseY <= tiles[i][o].y + canvas.height / 3){
                     clicks++;
                         if (spr(tiles[i][o])) {
-                            tiles[i][o].color='hsla(110, 100%, 50%, 1)';
+                            tiles[i][o].color=getTileColor();
                             if(!tiles[i][o].animate){
                                 points += 1;
                            tiles[i][o].animate=function(){
@@ -257,22 +262,22 @@ canvas.addEventListener('touchstart', function (e) {
 })
 
 canvas.addEventListener('touchend',function(){
-    if(game){
-        speed=lastSpeed;
-    clearTimeout(longt);
+    if(game&&!animate){
+        
+        speed=currSpeed+(rows-4)*(canvas.height / 45600);
+        clearTimeout(longt);
     }
 })
 /////////////////////////////////////LOSE && SET DEFAULT SCORES////////////////////////////////////////////////////////////////////////
 function lose(why,i,o,y) {
     
   if(parseInt(audioSound)){
-    if(audio)audio.pause();
-    
-    audio=new Audio("sound/Melodyjka.ogg");
-    audio.loop=true;
-    audio.volume=0.5;
-    
-    audio.play();
+    if(audio){
+        //audio.pause();
+        audio.currentTime=0;
+       
+    }
+
     
 }
     
@@ -362,4 +367,6 @@ game = false;
 //    
 //}
 
+
+///////////////////////////////////////////////////////////////////////////////
 main();

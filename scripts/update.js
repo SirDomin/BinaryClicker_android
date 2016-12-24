@@ -50,6 +50,7 @@ function update() {
                 //////////////SPEEED IT UP !/////////////////////
 
                 speed += canvas.height / 45600;
+            
             }
         }
     }

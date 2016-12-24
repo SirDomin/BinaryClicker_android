@@ -24,10 +24,14 @@ function setButtons() {
             particles[i] = new Particle;
         }
     }
+
 }
 
 ///////////////////////////////MAIN MENU///////////////////////
 function mainMenu() {
+    
+    
+    
   currMenu='mainMenu';
     kolor=0;
     kolorek=0;

@@ -66,42 +66,50 @@ updating=true;
     
     function onBackKeyDown() {
         
-        
-        if(currMenu=='mainMenu'){
-    	       navigator.notification.confirm(
-                    'Are you sure you want to exit?', // message
-                     onConfirm,            // callback to invoke with index of button pressed
-                    'Confirm exit',           // title
-                    ['Yes !','Nope']     // buttonLabels
-                );
-        
-            function onConfirm(buttonIndex) {
-                if (buttonIndex == 1) {
-                    navigator.app.exitApp();
+        if(alert){
+            
+            delete napis[alert.napisId];
+            delete napis[alert.napisId2];
+            delete napis[alert.napisId4];
+            delete napis[alert.napisId3];
+            alert=false;
+        }else{
+            if(currMenu=='mainMenu'){
+    	          navigator.notification.confirm(
+                        'Are you sure you want to exit?', // message
+                         onConfirm,            // callback to invoke with index of button pressed
+                        'Confirm exit',           // title
+                        ['Yes !','Nope']     // buttonLabels
+                    );
+            
+                function onConfirm(buttonIndex) {
+                    if (buttonIndex == 1) {
+                        navigator.app.exitApp();
+                    }
                 }
-            }
-        }else if(!game) {
+            }else if(!game) {
+                
+               buttons[buttons.length-1].onclick();
+                
+            }else if(game){
+                updating=false;
+                      navigator.notification.confirm(
+                        'Are you sure you want to exit game?', // message
+                         onConfirmG,            // callback to invoke with index of button pressed
+                        'Confirm exit',           // title
+                        ['Yes !','Nope']     // buttonLabels
+                    );
             
-           buttons[buttons.length-1].onclick();
-            
-        }else if(game){
-            updating=false;
-                  navigator.notification.confirm(
-                    'Are you sure you want to exit game?', // message
-                     onConfirmG,            // callback to invoke with index of button pressed
-                    'Confirm exit',           // title
-                    ['Yes !','Nope']     // buttonLabels
-                );
-        
-            function onConfirmG(buttonIndex) {
-                if (buttonIndex == 1) {
-                    lose();
-                     losuj=true;
-                }else {
-                    updating=true;
+                function onConfirmG(buttonIndex) {
+                    if (buttonIndex == 1) {
+                        lose();
+                         losuj=true;
+                    }else {
+                        updating=true;
+                    }
                 }
+                
             }
-            
         }
     }
     function longtouch(){
@@ -160,8 +168,9 @@ updating=true;
     gamemode = 0;
     napis = [];
     lastSpeed=0;
-
+    
     newValue = function(n, mode) {
+       
             rows++;
 
         if(rows>=105)rows=1;
@@ -333,6 +342,9 @@ return hours+"H "+minutes+"M "+seconds+"S ";
 }
     
 function getColor(){
+    
+    
+    
     if(kolor%300==0){
         if(kolorek<kolory.length-1)kolorek++;
     kolor=0;
@@ -340,6 +352,26 @@ function getColor(){
     kolor++;
     return kolory[kolorek];
 
+}
+function getBgColor(){
+    
+    var k;
+        
+    k=kolory[kolorek].split(',').splice(0,3);
+    k[3]=" "+0.5+")";
+    k=k.toString();
+    
+    return 'black';
+}
+    
+function getTileColor(){
+//  'hsla(57, 100%, 68%, 1)',
+    var k=kolory[kolorek];
+        
+
+ 
+    k.replace('68%','20%');
+    return 'hsla(110, 100%, 50%, 1)';
 }
 
 </script>

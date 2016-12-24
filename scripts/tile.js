@@ -13,23 +13,25 @@ var Tile = function (x, y, row_id, col_id, fSize,color) {
         this.w=canvas.width/3;
         this.h=canvas.height/3;
   
-    this.color=this.color.split(',').splice(0,3);
-     this.color[3]=" "+this.opacity+")";
-    this.color=this.color.toString();
+        this.color=this.color.split(',').splice(0,3);
+        this.color[3]=" "+this.opacity+")";
+        this.color=this.color.toString();
+    
         this.render = function () {
             
           
-           this.color=this.color.split(',').splice(0,3);
-             this.color[3]=" "+this.opacity+")";
-    this.color=this.color.toString();
-                ctx.fillStyle="black";
+                this.color=this.color.split(',').splice(0,3);
+                this.color[3]=" "+this.opacity+")";
+                this.color=this.color.toString();
+            
+                ctx.fillStyle='hsla(192, 100%, 0%, '+this.opacity+')';
                 ctx.fillRect(this.x,this.y,this.w,this.h)
                 ctx.fillStyle=this.color;
-            ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
+                ctx.fillRect(this.x+3,this.y+3,this.w-6,this.h-6);
             
     
             ctx.font = this.fSize + 'px '+currFont;
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'hsla(192, 100%, 0%, '+this.opacity+')';
             if(gamemode=='bin'){
             ctx.fillText(this.value, this.x + canvas.width / 10, this.y + canvas.height / 5.1);
             }else 
