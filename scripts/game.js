@@ -3,8 +3,10 @@ var canvas = document.getElementById("canvas");
 
 
 canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.height = window.innerHeight-(100);
 
+
+/////////////////////////////////
 
 //canvas.width =480
 //canvas.height=640;
@@ -170,7 +172,61 @@ mainMenu();
 
 
 document.addEventListener("pause", onPause, false);
+document.addEventListener('deviceready',function(){
+ //get the installed plugin instance
+service = Cocoon.Ad;
 
+//multiplatform default configuration
+service.configure({
+  ios: {
+                      banner:"ca-app-pub-7686972479101507/8873903476",
+                      interstitial:"ca-app-pub-7686972479101507/8873903476",
+                 },
+                 android: {
+                      banner:"ca-app-pub-7686972479101507/4443703872",
+                      interstitial:"ca-app-pub-7686972479101507/4443703872"
+                 }
+});
+
+//Create banner: optional AdUnit and BannerSize arguments
+ banner = service.createBanner();
+
+//Configure banner listeners
+banner.on("load", function(){
+   console.log("Banner loaded " + banner.width, banner.height);
+    baner=true;
+   banner.show();
+});
+
+banner.on("fail", function(){
+   console.log("Banner failed to load");
+});
+
+banner.on("show", function(){
+   console.log("Banner shown a modal content");
+});
+
+banner.on("dismiss", function(){
+   console.log("Banner dismissed the modal content");
+});
+
+banner.on("click", function(){
+   console.log("Banner clicked");
+});
+
+ //load banner
+banner.load();
+
+//Show or hide banner
+banner.show();
+banner.hide();
+
+//Automatic banner layout
+banner.setLayout(Cocoon.Ad.BannerLayout.BOTTOM_CENTER);
+
+
+
+});
 
 
 document.addEventListener("backbutton",onBackKeyDown,false);
@@ -264,7 +320,7 @@ canvas.addEventListener('touchstart', function (e) {
 canvas.addEventListener('touchend',function(){
     if(game&&!animate){
         
-        speed=currSpeed+(rows-4)*(canvas.height / 45600);
+        speed=currSpeed+(points-4)*(canvas.height / 45600);
         clearTimeout(longt);
     }
 })

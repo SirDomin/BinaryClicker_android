@@ -30,15 +30,17 @@ function setButtons() {
 ///////////////////////////////MAIN MENU///////////////////////
 function mainMenu() {
     
-    
-    
+    if(baner){
+        banner.load();
+        banner.show();
+    }
   currMenu='mainMenu';
     kolor=0;
     kolorek=0;
     
     napis = [];
     buttons = [];
-    napis[0]=new Napis(canvas.width/6,canvas.height/7,'hsla(82, 0%, 51%, 1)',"Last Score: "+localStorage.getItem('lastScore'),canvas.height*0.06)
+    napis[0]=new Napis(canvas.width/6,canvas.height/7.5,'hsla(82, 0%, 51%, 1)',"Last Score: "+localStorage.getItem('lastScore'),canvas.height*0.06)
     buttons[0] = new Button(-buttonW, button1Y, buttonW, buttonH, 'black', 0, 'New Game', Math.floor(canvas.height *0.05), function () {
         this.img = buttonClk;
         animation = true;
@@ -111,30 +113,29 @@ function mainMenu() {
             }
         };
 
-
     })
     
-if(localStorage.getItem('clicks')>3200){
-buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'black', 0, 'STATS', buttonfontSize, function () {
+buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'black', 0, 'Quit', buttonfontSize, function () {
 
         this.img = buttonClk;
-        animation = true;
-        this.animate = function () {
-
-            if (this.x < canvas.width) {
-                for (var i = 0; i < buttons.length; i++) {
-                    buttons[i].x += buttonsAnimSpeed;
+       
+   navigator.notification.confirm(
+                        'Are you sure you want to exit?', // message
+                         onConfirm,            // callback to invoke with index of button pressed
+                        'Confirm exit',           // title
+                        ['Yes !','Nope']     // buttonLabels
+                    );
+            
+                function onConfirm(buttonIndex) {
+                    if (buttonIndex == 1) {
+                        navigator.app.exitApp();
+                    }else {
+                        buttons[4].img=buttonImg;
+                    }
                 }
-            } else {
-                animation = false;
-                stats();
-
-            }
-        };
-
 
     })
-}
+
 
     animation = true;
     for (var i = 0; i < buttons.length; i++) {
@@ -154,6 +155,9 @@ buttons[4] = new Button(-buttonW, button5Y, buttonW, buttonH, 'black', 0, 'STATS
 
 ////////////////////////////////GAME CHOICE MENU//////////////////////
 function newGame() {
+    
+    canvas.height = window.innerHeight
+    if(baner)banner.hide();
     buttons = [];
     napis=[];
 currMenu='newGame';
@@ -408,6 +412,30 @@ function info() {
             }
         };
     })
+    
+if(localStorage.getItem('clicks')>3200){
+buttons[buttons.length] = new Button(canvas.width, button4Y, buttonW, buttonH, 'black', 0, 'STATS', buttonfontSize, function () {
+
+        this.img = buttonClk;
+        animation = true;
+        this.animate = function () {
+
+            if (this.x < canvas.width) {
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].x += buttonsAnimSpeed;
+                }
+                for(var i=0;i<napis.length;i++)napis[i].x+=buttonsAnimSpeed;
+                
+            } else {
+                animation = false;
+                stats();
+
+            }
+        };
+
+
+    })
+}
 
     animation = true;
     for (var i = 0; i < buttons.length; i++) {
@@ -678,7 +706,7 @@ buttons[0] = new Button(canvas.width, button5Y, buttonW, buttonH, 'black', 0, '<
 
             } else {
                 animation = false;
-                mainMenu()
+                info()
 
             }
         };
