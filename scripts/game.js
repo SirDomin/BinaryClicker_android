@@ -179,12 +179,12 @@ service = Cocoon.Ad;
 //multiplatform default configuration
 service.configure({
   ios: {
-                      banner:"ca-app-pub-7686972479101507/8873903476",
-                      interstitial:"ca-app-pub-7686972479101507/8873903476",
+                      banner:"ca-app-pub-6849038301893511/8871335782",
+                      interstitial:"ca-app-pub-6849038301893511/8871335782",
                  },
                  android: {
-                      banner:"ca-app-pub-7686972479101507/4443703872",
-                      interstitial:"ca-app-pub-7686972479101507/4443703872"
+                      banner:"ca-app-pub-6849038301893511/8871335782",
+                      interstitial:"ca-app-pub-6849038301893511/8871335782"
                  }
 });
 
